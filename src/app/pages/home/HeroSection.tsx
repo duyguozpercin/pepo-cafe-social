@@ -45,7 +45,7 @@ export function HeroSection() {
             fontWeight: 400,
           }}
         >
-          PEPO 
+          PEPO
           <br />
           <span style={{ color: "#C49A2A" }}>Coffee & Social</span>
         </h1>
@@ -65,31 +65,38 @@ export function HeroSection() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             to="/menu"
-            style={{
-              backgroundColor: "#C49A2A",
-              color: "#1A0F08",
-              padding: "0.9rem 2.5rem",
-              letterSpacing: "0.2em",
-              fontSize: "0.8rem",
-              textDecoration: "none",
-            }}
+            className="
+    inline-block
+    bg-[#C49A2A] text-[#1A0F08]
+    hover:bg-[#D4AA3A]
+    transition-colors duration-200
+    py-[0.9rem] px-[2.5rem]
+    text-[0.8rem]
+    tracking-[0.2em]
+    no-underline
+  "
           >
             MENÜYÜ GÖR
           </Link>
 
           <Link
             to="/franchise"
-            style={{
-              border: "1px solid rgba(196,154,42,0.6)",
-              color: "#C49A2A",
-              padding: "0.9rem 2.5rem",
-              letterSpacing: "0.2em",
-              fontSize: "0.8rem",
-              textDecoration: "none",
-            }}
+            className="
+    inline-block
+    border border-[#C49A2A]/60
+    text-[#C49A2A]
+    hover:border-[#C49A2A]
+    hover:text-[#D4AA3A]
+    transition-colors duration-200
+    py-[0.9rem] px-[2.5rem]
+    text-[0.8rem]
+    tracking-[0.2em]
+    no-underline
+  "
           >
             FRANCHISE
           </Link>
+
         </div>
       </div>
     </section>

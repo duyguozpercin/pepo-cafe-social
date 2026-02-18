@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { ImageWithFallback } from "../../components/ImageWithFallback";
+import { CategoryCard } from "./CategoryCard";
 
 const coffeeImg =
   "https://images.unsplash.com/photo-1763473821509-9a383b480844?...";
@@ -68,78 +68,31 @@ export function CategoriesSection() {
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((cat) => (
-            <div
-              key={cat.label}
-              className="group overflow-hidden relative cursor-default"
-            >
-              <div className="overflow-hidden h-[320px]">
-                <ImageWithFallback
-                  src={cat.img}
-                  alt={cat.label}
-                  className="w-full h-full object-cover transition-transform duration-700"
-                  style={{ filter: "brightness(0.6)" }}
-                />
-              </div>
-
-              <div
-                className="absolute bottom-0 left-0 right-0 p-6"
-                style={{
-                  background:
-                    "linear-gradient(to top, rgba(26,15,8,0.95) 0%, transparent 100%)",
-                }}
-              >
-                <div
-                  style={{
-                    color: "#C49A2A",
-                    fontSize: "0.65rem",
-                    letterSpacing: "0.3em",
-                    marginBottom: "0.4rem",
-                  }}
-                >
-                  ——
-                </div>
-
-                <h3
-                  style={{
-                    color: "#F5F0E8",
-                    fontSize: "1.3rem",
-                    fontWeight: 400,
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  {cat.label}
-                </h3>
-
-                <p
-                  style={{
-                    color: "rgba(245,240,232,0.6)",
-                    fontSize: "0.82rem",
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {cat.desc}
-                </p>
-              </div>
-            </div>
+            <CategoryCard key={cat.label} {...cat} />
           ))}
         </div>
+
 
         {/* CTA */}
         <div className="text-center mt-12">
           <Link
             to="/menu"
-            style={{
-              border: "1px solid rgba(196,154,42,0.5)",
-              color: "#C49A2A",
-              padding: "0.85rem 3rem",
-              letterSpacing: "0.2em",
-              fontSize: "0.78rem",
-              textDecoration: "none",
-              display: "inline-block",
-            }}
+            className="
+    inline-block
+    border border-[#C49A2A]/50
+    text-[#C49A2A]
+    hover:bg-[#C49A2A]
+    hover:text-[#1A0F08]
+    transition-colors duration-200
+    py-[0.85rem] px-[3rem]
+    text-[0.78rem]
+    tracking-[0.2em]
+    no-underline
+  "
           >
             TÜM MENÜYÜ KEŞFET
           </Link>
+
         </div>
 
       </div>
