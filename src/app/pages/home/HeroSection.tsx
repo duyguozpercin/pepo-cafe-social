@@ -19,14 +19,14 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        <div className="text-[#C49A2A] text-[0.72rem] tracking-[0.4em] mb-6 opacity-90">
+        <div className="text-[rgb(var(--pepo-gold))] text-[0.72rem] tracking-[0.4em] mb-6 opacity-90">
           İSTANBUL'UN YENİ BULUŞMA NOKTASI
         </div>
 
-        <h1 className="text-[#F5F0E8] text-[clamp(3rem,9vw,7rem)] leading-[1.05] mb-6 font-normal">
+        <h1 className="text-[rgb(var(--pepo-text))] text-[clamp(3rem,9vw,7rem)] leading-[1.05] mb-6 font-normal">
           PEPO Coffee
           <br />
-          <span className="text-[#C49A2A]">& Social</span>
+          <span className="text-[rgb(var(--pepo-gold))]">& Social</span>
         </h1>
 
         <p className="text-[rgba(245,240,232,0.7)] text-[clamp(1rem,2vw,1.2rem)] leading-[1.8] mb-12 max-w-[560px] mx-auto">
@@ -36,14 +36,14 @@ export function HeroSection() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             to="/menu"
-            className="inline-block bg-[#C49A2A] text-[#1A0F08] hover:bg-[#D4AA3A] transition-colors duration-200 py-[0.9rem] px-[2.5rem] text-[0.8rem] tracking-[0.2em] no-underline"
+            className="inline-block bg-[#C49A2A] text-[#1A0F08] hover:bg-[hover:bg-[rgb(var(--pepo-gold-2))]] transition-colors duration-200 py-[0.9rem] px-[2.5rem] text-[0.8rem] tracking-[0.2em] no-underline"
           >
             MENÜYÜ GÖR
           </Link>
 
           <Link
             to="/franchise"
-            className="inline-block border border-[#C49A2A]/60 text-[#C49A2A] hover:border-[#C49A2A] hover:text-[#D4AA3A] transition-colors duration-200 py-[0.9rem] px-[2.5rem] text-[0.8rem] tracking-[0.2em] no-underline"
+            className="inline-block border border-[#C49A2A]/60 text-[rgb(var(--pepo-gold))] hover:border-[#C49A2A] hover:text-[hover:bg-[rgb(var(--pepo-gold-2))]] transition-colors duration-200 py-[0.9rem] px-[2.5rem] text-[0.8rem] tracking-[0.2em] no-underline"
           >
             FRANCHISE
           </Link>

@@ -18,11 +18,11 @@ export function CategoryCard({ label, img, desc }: CategoryCardProps) {
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 p-6 bg-[linear-gradient(to_top,rgba(26,15,8,0.95)_0%,transparent_100%)]">
-        <div className="text-[#C49A2A] text-[0.65rem] tracking-[0.3em] mb-[0.4rem]">
+        <div className="text-[rgb(var(--pepo-gold))] text-[0.65rem] tracking-[0.3em] mb-[0.4rem]">
           ——
         </div>
 
-        <h3 className="text-[#F5F0E8] text-[1.3rem] font-normal mb-2">
+        <h3 className="text-[rgb(var(--pepo-text))] text-[1.3rem] font-normal mb-2">
           {label}
         </h3>
 

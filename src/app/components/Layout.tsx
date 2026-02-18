@@ -154,10 +154,10 @@ export function Layout() {
                   className="h-10 w-auto"
                 />
                 <div className="leading-[1.1]">
-                  <div className="text-[#C49A2A] text-[1.1rem] tracking-[0.12em]">
+                  <div className="text-[rgb(var(--pepo-gold))] text-[1.1rem] tracking-[0.12em]">
                     PEPO
                   </div>
-                  <div className="text-[#F5F0E8] text-[0.6rem] tracking-[0.25em] opacity-60">
+                  <div className="text-[rgb(var(--pepo-text))] text-[0.6rem] tracking-[0.25em] opacity-60">
                     COFFEE & SOCIAL
                   </div>
                 </div>
@@ -171,7 +171,7 @@ export function Layout() {
 
             {/* Links */}
             <div>
-              <h4 className="text-[#C49A2A] text-[0.75rem] tracking-[0.25em] mb-4">
+              <h4 className="text-[rgb(var(--pepo-gold))] text-[0.75rem] tracking-[0.25em] mb-4">
                 SAYFALAR
               </h4>
 
@@ -180,7 +180,7 @@ export function Layout() {
                   <li key={link.to}>
                     <Link
                       to={link.to}
-                      className="no-underline text-[rgba(245,240,232,0.65)] hover:text-[#C49A2A] transition-colors duration-200 text-[0.88rem] tracking-[0.05em]"
+                      className="no-underline text-[rgba(245,240,232,0.65)] hover:text-[rgb(var(--pepo-gold))] transition-colors duration-200 text-[0.88rem] tracking-[0.05em]"
                     >
                       {link.label}
                     </Link>
@@ -191,7 +191,7 @@ export function Layout() {
 
             {/* Contact */}
             <div>
-              <h4 className="text-[#C49A2A] text-[0.75rem] tracking-[0.25em] mb-4">
+              <h4 className="text-[rgb(var(--pepo-gold))] text-[0.75rem] tracking-[0.25em] mb-4">
                 İLETİŞİM
               </h4>
 
@@ -206,7 +206,7 @@ export function Layout() {
                   <a
                     key={s}
                     href="#"
-                    className="no-underline text-[rgba(245,240,232,0.55)] hover:text-[#C49A2A] transition-colors duration-200 text-[0.75rem] tracking-[0.1em]"
+                    className="no-underline text-[rgba(245,240,232,0.55)] hover:text-[rgb(var(--pepo-gold))] transition-colors duration-200 text-[0.75rem] tracking-[0.1em]"
                   >
                     {s}
                   </a>

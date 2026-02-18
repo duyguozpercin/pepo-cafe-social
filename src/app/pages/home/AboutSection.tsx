@@ -11,7 +11,7 @@ const stats = [
 
 export function AboutSection() {
   return (
-    <section className="bg-[#1A0F08] py-28 px-6">
+    <section className="bg-[rgb(var(--pepo-bg))] py-28 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Left: Image */}
         <div className="relative">
@@ -27,14 +27,14 @@ export function AboutSection() {
 
         {/* Right: Text */}
         <div>
-          <div className="text-[#C49A2A] text-[0.72rem] tracking-[0.4em] mb-[1.2rem]">
+          <div className="text-[rgb(var(--pepo-gold))] text-[0.72rem] tracking-[0.4em] mb-[1.2rem]">
             HİKÂYEMİZ
           </div>
 
-          <h2 className="text-[#F5F0E8] text-[clamp(2rem,4vw,3.2rem)] leading-[1.2] mb-6 font-normal">
+          <h2 className="text-[rgb(var(--pepo-text))] text-[clamp(2rem,4vw,3.2rem)] leading-[1.2] mb-6 font-normal">
             Kahvenin Ötesinde
             <br />
-            <span className="text-[#C49A2A]">Bir Deneyim</span>
+            <span className="text-[rgb(var(--pepo-gold))]">Bir Deneyim</span>
           </h2>
 
           <p className="text-[rgba(245,240,232,0.65)] leading-[1.9] text-[1rem] mb-[1.2rem]">
@@ -51,7 +51,7 @@ export function AboutSection() {
           <div className="flex gap-10">
             {stats.map((item) => (
               <div key={item.label}>
-                <div className="text-[#C49A2A] text-[1.8rem] leading-none">
+                <div className="text-[rgb(var(--pepo-gold))] text-[1.8rem] leading-none">
                   {item.num}
                 </div>
                 <div className="text-[rgba(245,240,232,0.45)] text-[0.72rem] tracking-[0.1em] mt-[0.3rem]">
