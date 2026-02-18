@@ -25,7 +25,7 @@ export function FranchiseBanner() {
 
         <Link
           to="/franchise"
-          className="inline-block bg-[#C49A2A] text-[#1A0F08] hover:bg-[hover:bg-[rgb(var(--pepo-gold-2))]] transition-colors duration-200 py-[1rem] px-[3rem] text-[0.8rem] tracking-[0.2em] no-underline"
+          className="inline-block bg-[#C49A2A] text-[#1A0F08] hover:bg-[rgb(var(--pepo-gold-2))] transition-colors duration-200 py-[1rem] px-[3rem] text-[0.8rem] tracking-[0.2em] no-underline"
         >
           FRANCHISE BAŞVURUSU
         </Link>

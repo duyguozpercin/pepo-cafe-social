@@ -36,10 +36,11 @@ export function HeroSection() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             to="/menu"
-            className="inline-block bg-[#C49A2A] text-[#1A0F08] hover:bg-[hover:bg-[rgb(var(--pepo-gold-2))]] transition-colors duration-200 py-[0.9rem] px-[2.5rem] text-[0.8rem] tracking-[0.2em] no-underline"
+            className="inline-block bg-[#C49A2A] text-[#1A0F08] hover:bg-[rgb(var(--pepo-gold-2))] transition-colors duration-200 py-[0.9rem] px-[2.5rem] text-[0.8rem] tracking-[0.2em] no-underline"
           >
             MENÜYÜ GÖR
           </Link>
+
 
           <Link
             to="/franchise"
