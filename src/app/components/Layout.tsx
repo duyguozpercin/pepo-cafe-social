@@ -25,6 +25,7 @@ export function Layout() {
     { to: "/menu", label: "Menü" },
     { to: "/franchise", label: "Franchise" },
     { to: "/kariyer", label: "Kariyer" },
+    { to: "/iletisim", label: "İletişim" },
   ];
 
   return (
