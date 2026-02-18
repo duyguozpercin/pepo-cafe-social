@@ -6,7 +6,7 @@ import { FranchiseBanner } from "./home/FranchiseBanner";
 
 export function Home() {
   return (
-    <div style={{ fontFamily: "'Forum', serif" }}>
+    <div>
       <HeroSection />
       <AboutSection />
       <CategoriesSection />
