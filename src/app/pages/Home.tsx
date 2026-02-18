@@ -1,3 +1,13 @@
+import { HeroSection } from "./home/HeroSection";
+import { AboutSection } from "./home/AboutSection";
+import { CategoriesSection } from "./home/CategoriesSection";
+
 export function Home() {
-  return <h1 className="text-3xl font-semibold">Home</h1>;
+  return (
+    <div style={{ fontFamily: "'Forum', serif" }}>
+      <HeroSection />
+      <AboutSection />
+      <CategoriesSection />
+    </div>
+  );
 }
