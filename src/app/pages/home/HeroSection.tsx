@@ -2,8 +2,7 @@ import { Link } from "react-router";
 import { ImageWithFallback } from "../../components/ImageWithFallback";
 
 const heroImg =
-  "https://images.unsplash.com/photo-1542520698-eec198b78a09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXJrJTIwbW9vZHklMjBjb2ZmZWUlMjBzaG9wJTIwaW50ZXJpb3IlMjBlbGVnYW50fGVufDF8fHx8MTc3MTM2Mzc5NXww&ixlib=rb-4.1.0&q=80&w=1080";
-
+"/banner.jpeg"
 export function HeroSection() {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -20,7 +19,7 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
         <div className="text-[rgb(var(--pepo-gold))] text-[0.72rem] tracking-[0.4em] mb-6 opacity-90">
-          İSTANBUL'UN YENİ BULUŞMA NOKTASI
+          İZMİR'İN YENİ BULUŞMA NOKTASI
         </div>
 
         <h1 className="text-[rgb(var(--pepo-text))] text-[clamp(3rem,9vw,7rem)] leading-[1.05] mb-6 font-normal">
