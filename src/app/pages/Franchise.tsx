@@ -2,8 +2,7 @@ import { useState } from "react";
 import { ImageWithFallback } from "../components/ImageWithFallback";
 
 const franchiseImg =
-  "https://images.unsplash.com/photo-1630331513548-41612d107796?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=900";
-
+"pepo-franchise.png";
 const benefits = [
   {
     icon: (
