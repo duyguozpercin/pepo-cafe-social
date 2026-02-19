@@ -1,9 +1,16 @@
+
 @import "tailwindcss";
 
 :root {
   --background: 0 0% 100%;
   --foreground: 240 10% 3.9%;
   --border: 240 5.9% 90%;
+  font-family: "Forum", serif;
+  --pepo-bg: 26 15 8;        /* #1A0F08 */
+  --pepo-bg-2: 17 10 4;      /* #110A04 */
+  --pepo-text: 245 240 232;  /* #F5F0E8 */
+  --pepo-gold: 196 154 42;   /* #C49A2A */
+  --pepo-gold-2: 212 170 58; /* hover:bg-[rgb(var(--pepo-gold-2))] */
 }
 
 .bg-background { background-color: hsl(var(--background)); }
