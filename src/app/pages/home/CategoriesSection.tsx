@@ -2,11 +2,9 @@ import { Link } from "react-router";
 import { CategoryCard } from "./CategoryCard";
 
 const coffeeImg =
-  "https://images.unsplash.com/photo-1763473821509-9a383b480844?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlc3ByZXNzbyUyMGNvZmZlZSUyMGxhdHRlJTIwYXJ0JTIwY2xvc2UlMjB1cCUyMGRhcmt8ZW58MXx8fHwxNzcxMzYzNzk4fDA&ixlib=rb-4.1.0&q=80&w=600";
-
+"coffee-800.webp";
 const croissantImg =
-  "https://images.unsplash.com/photo-1612366747681-e4ca6992b1e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcm9pc3NhbnQlMjBwYXN0cnklMjBjYWZlJTIwZGFyayUyMGJhY2tncm91bmR8ZW58MXx8fHwxNzcxMzYzNzk4fDA&ixlib=rb-4.1.0&q=80&w=600";
-
+"kruvasan.webp";
 const dessertImg =
   "https://images.unsplash.com/photo-1740594967618-23cd757b9291?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaG9jb2xhdGUlMjBkZXNzZXJ0JTIwY2FrZSUyMGRhcmslMjBlbGVnYW50fGVufDF8fHx8MTc3MTM2MzgwMXww&ixlib=rb-4.1.0&q=80&w=600";
 
