@@ -2,15 +2,13 @@ import { Link } from "react-router";
 import { CategoryCard } from "./CategoryCard";
 
 const coffeeImg =
-"coffee-800.webp";
+  "coffee-800.webp";
 const croissantImg =
-"kruvasan.webp";
+  "kruvasan.webp";
 const dessertImg =
-  "https://images.unsplash.com/photo-1740594967618-23cd757b9291?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaG9jb2xhdGUlMjBkZXNzZXJ0JTIwY2FrZSUyMGRhcmslMjBlbGVnYW50fGVufDF8fHx8MTc3MTM2MzgwMXww&ixlib=rb-4.1.0&q=80&w=600";
-
+  "tatli.png";
 const sandwichImg =
-  "https://images.unsplash.com/photo-1762680850399-c085c8d15afe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnb3VybWV0JTIwc2FuZHdpY2glMjBjYWZlJTIwZm9vZCUyMGRhcmslMjBtb29keXxlbnwxfHx8fDE3NzEzNjM3OTl8MA&ixlib=rb-4.1.0&q=80&w=600";
-
+  "sandvic.png"
 const categories = [
   {
     label: "Kahveler",

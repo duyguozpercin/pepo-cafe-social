@@ -3,7 +3,7 @@ import { ImageWithFallback } from "../../components/ImageWithFallback";
 const baristaImg =
 "banner.jpeg";
 const stats = [
-  { num: "2025", label: "Kuruluş Yılı" },
+  { num: "2023", label: "Kuruluş Yılı" },
   { num: "100+", label: "Menü Seçeneği" },
   { num: "∞", label: "Sıcak Atmosfer" },
 ];
@@ -20,8 +20,7 @@ export function AboutSection() {
             className="w-full h-[520px] object-cover filter brightness-[0.85]"
           />
 
-          {/* Decorative square */}
-          <div className="pointer-events-none absolute -bottom-5 -right-5 w-[180px] h-[180px] border border-[#C49A2A]/40" />
+          {/* <div className="pointer-events-none absolute -bottom-5 -right-5 w-[180px] h-[180px] border border-[#C49A2A]/40" /> */}
         </div>
 
         {/* Right: Text */}
