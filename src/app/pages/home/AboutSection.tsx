@@ -1,7 +1,7 @@
 import { ImageWithFallback } from "../../components/ImageWithFallback";
 
 const baristaImg =
-"banner.jpeg";
+  "banner.jpeg";
 const stats = [
   { num: "2023", label: "Kuruluş Yılı" },
   { num: "100+", label: "Menü Seçeneği" },
