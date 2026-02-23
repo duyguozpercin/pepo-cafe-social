@@ -1,8 +1,7 @@
 import { ImageWithFallback } from "../../components/ImageWithFallback";
 
 const baristaImg =
-  "https://images.unsplash.com/photo-1770991966683-472a770d0ebf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjYWZlJTIwYmFyaXN0YSUyMGNvZmZlZSUyMHByZXBhcmF0aW9ufGVufDF8fHx8MTc3MTM2MzgwMnww&ixlib=rb-4.1.0&q=80&w=900";
-
+"banner.jpeg";
 const stats = [
   { num: "2025", label: "Kuruluş Yılı" },
   { num: "100+", label: "Menü Seçeneği" },
