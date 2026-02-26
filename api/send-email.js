@@ -1,8 +1,8 @@
-import { Resend } from "resend";
+const { Resend } = require("resend");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -13,10 +13,10 @@ export default async function handler(req, res) {
     if (!message || message.trim().length < 3) {
       return res.status(400).json({ error: "Message is required" });
     }
-""
+
     const data = await resend.emails.send({
-      from: process.env.RESEND_FROM,      // ör: "PEPO <noreply@senindomainin.com>"
-      to: process.env.RESEND_TO,          // ör: "seninmailin@gmail.com"
+      from: process.env.RESEND_FROM,
+      to: process.env.RESEND_TO,
       replyTo: email ? [email] : undefined,
       subject: `PEPO Contact${name ? " - " + name : ""}`,
       html: `
@@ -29,6 +29,8 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ ok: true, data });
   } catch (err) {
-    return res.status(500).json({ ok: false, error: err?.message || "Server error" });
+    return res
+      .status(500)
+      .json({ ok: false, error: err?.message || "Server error" });
   }
-}
+};
