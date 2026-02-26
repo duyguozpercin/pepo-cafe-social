@@ -72,8 +72,11 @@ export function Contact() {
     konu: "",
     mesaj: "",
   });
+
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<ContactForm>>({});
+  const [isSending, setIsSending] = useState(false);
+  const [serverError, setServerError] = useState<string>("");
 
   const validate = () => {
     const errs: Partial<ContactForm> = {};
@@ -84,14 +87,54 @@ export function Contact() {
     return errs;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setServerError("");
+
     const errs = validate();
     if (Object.keys(errs).length) {
       setErrors(errs);
       return;
     }
-    setSubmitted(true);
+
+    setErrors({});
+    setIsSending(true);
+
+    try {
+      const payload = {
+        type: "contact",
+        name: form.adSoyad,
+        email: form.email,
+        message: `Konu: ${form.konu || "-"}\nTelefon: ${form.telefon || "-"}\n\n${form.mesaj}`,
+        // ekstra alanlar (backend rest ile listeler)
+        telefon: form.telefon,
+        konu: form.konu,
+      };
+
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok) {
+        const msg =
+          data?.error ||
+          data?.message ||
+          "Gönderim sırasında bir hata oluştu. Tekrar dene.";
+        setServerError(msg);
+        return;
+      }
+
+      // API success
+      setSubmitted(true);
+    } catch (err: any) {
+      setServerError(err?.message || "Ağ hatası oluştu. Tekrar dene.");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -152,11 +195,7 @@ export function Contact() {
               desc="Bağdat Caddesi, No: 00, Kadıköy / İstanbul"
               meta="HARİTADA AÇ"
             />
-            <InfoCard
-              title="Telefon"
-              desc="+90 500 000 00 00"
-              meta="WHATSAPP / ARAMA"
-            />
+            <InfoCard title="Telefon" desc="+90 500 000 00 00" meta="WHATSAPP / ARAMA" />
             <InfoCard
               title="Çalışma Saatleri"
               desc="Hafta içi 08:00–22:00 • Hafta sonu 09:00–23:00"
@@ -228,6 +267,7 @@ export function Contact() {
                     }
                     placeholder="Adınız Soyadınız"
                     className={baseField}
+                    disabled={isSending}
                   />
                   <FieldError>{errors.adSoyad}</FieldError>
                 </div>
@@ -242,6 +282,7 @@ export function Contact() {
                     }
                     placeholder="+90 5__ ___ __ __"
                     className={baseField}
+                    disabled={isSending}
                   />
                 </div>
               </div>
@@ -256,6 +297,7 @@ export function Contact() {
                   }
                   placeholder="ornek@email.com"
                   className={baseField}
+                  disabled={isSending}
                 />
                 <FieldError>{errors.email}</FieldError>
               </div>
@@ -265,11 +307,10 @@ export function Contact() {
                 <input
                   type="text"
                   value={form.konu}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, konu: e.target.value }))
-                  }
+                  onChange={(e) => setForm((f) => ({ ...f, konu: e.target.value }))}
                   placeholder="Örn: Rezervasyon / Öneri / İş birliği"
                   className={baseField}
+                  disabled={isSending}
                 />
               </div>
 
@@ -283,9 +324,16 @@ export function Contact() {
                   placeholder="Mesajını yaz..."
                   rows={6}
                   className={baseField + " resize-y"}
+                  disabled={isSending}
                 />
                 <FieldError>{errors.mesaj}</FieldError>
               </div>
+
+              {serverError ? (
+                <div className="border border-[rgb(var(--pepo-gold))]/35 bg-[rgb(var(--pepo-gold))]/[0.04] px-5 py-4 text-[0.85rem] text-[rgb(var(--pepo-text))]/70">
+                  {serverError}
+                </div>
+              ) : null}
 
               <div className="text-[0.72rem] leading-7 text-[rgb(var(--pepo-text))]/35">
                 * Bilgilerin yalnızca iletişim amacıyla kullanılacaktır.
@@ -293,9 +341,10 @@ export function Contact() {
 
               <button
                 type="submit"
-                className="self-start bg-[rgb(var(--pepo-gold))] px-12 py-4 text-[0.8rem] tracking-[0.25em] text-[rgb(var(--pepo-bg))] transition hover:bg-[rgb(var(--pepo-gold-2))]"
+                disabled={isSending}
+                className="self-start bg-[rgb(var(--pepo-gold))] px-12 py-4 text-[0.8rem] tracking-[0.25em] text-[rgb(var(--pepo-bg))] transition hover:bg-[rgb(var(--pepo-gold-2))] disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                GÖNDER
+                {isSending ? "GÖNDERİLİYOR..." : "GÖNDER"}
               </button>
             </form>
           )}
