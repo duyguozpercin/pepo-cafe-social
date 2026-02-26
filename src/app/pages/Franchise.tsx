@@ -1,12 +1,19 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { ImageWithFallback } from "../components/ImageWithFallback";
 
-const franchiseImg =
-"pepo-franchise.png";
+const franchiseImg = "pepo-franchise.png";
+
 const benefits = [
   {
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <path d="M12 2L2 7l10 5 10-5-10-5z" />
         <path d="M2 17l10 5 10-5" />
         <path d="M2 12l10 5 10-5" />
@@ -17,7 +24,14 @@ const benefits = [
   },
   {
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <circle cx="12" cy="12" r="10" />
         <path d="M12 6v6l4 2" />
       </svg>
@@ -27,7 +41,14 @@ const benefits = [
   },
   {
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
         <circle cx="9" cy="7" r="4" />
         <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
@@ -39,7 +60,14 @@ const benefits = [
   },
   {
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      >
         <line x1="12" y1="1" x2="12" y2="23" />
         <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
       </svg>
@@ -51,7 +79,11 @@ const benefits = [
 
 const steps = [
   { num: "01", title: "Başvuru", desc: "Formu doldurun, size ulaşalım." },
-  { num: "02", title: "Ön Görüşme", desc: "Telefon ya da yüz yüze tanışma toplantısı." },
+  {
+    num: "02",
+    title: "Ön Görüşme",
+    desc: "Telefon ya da yüz yüze tanışma toplantısı.",
+  },
   { num: "03", title: "Değerlendirme", desc: "Konum ve fizibilite analizi." },
   { num: "04", title: "Anlaşma", desc: "Franchise sözleşmesinin imzalanması." },
   { num: "05", title: "Eğitim", desc: "Kapsamlı operasyon ve kahve eğitimi." },
@@ -83,25 +115,70 @@ export function Franchise() {
 
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [isSending, setIsSending] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
 
   const validate = () => {
     const newErrors: Partial<FormData> = {};
     if (!form.adSoyad.trim()) newErrors.adSoyad = "Ad Soyad zorunludur.";
     if (!form.telefon.trim()) newErrors.telefon = "Telefon zorunludur.";
-    if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) newErrors.email = "Geçerli bir e-posta girin.";
+    if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email))
+      newErrors.email = "Geçerli bir e-posta girin.";
     if (!form.sehir.trim()) newErrors.sehir = "Şehir zorunludur.";
     if (!form.butce) newErrors.butce = "Bütçe aralığı seçiniz.";
     return newErrors;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setServerError(null);
+
     const errs = validate();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
       return;
     }
-    setSubmitted(true);
+
+    setErrors({});
+    setIsSending(true);
+
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "franchise",
+          ...form,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || data?.ok === false || data?.data?.error) {
+        const msg =
+          data?.error ||
+          data?.data?.error?.message ||
+          "Gönderim sırasında hata oluştu. Lütfen tekrar deneyin.";
+        throw new Error(msg);
+      }
+
+      setSubmitted(true);
+
+      setForm({
+        adSoyad: "",
+        telefon: "",
+        email: "",
+        sehir: "",
+        konum: "",
+        butce: "",
+        deneyim: "",
+        mesaj: "",
+      });
+    } catch (err: any) {
+      setServerError(err?.message || "Gönderim sırasında hata oluştu.");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const labelClass =
@@ -141,7 +218,8 @@ export function Franchise() {
           </h1>
 
           <p className="text-[rgba(245,240,232,0.6)] text-[1rem] leading-[1.9] max-w-[600px] mx-auto">
-            PEPO Coffee & Social olarak franchise yolculuğumuza ilk adımı atıyoruz. Sizi de bu büyümekte olan ailenin bir parçası yapmak istiyoruz.
+            PEPO Coffee & Social olarak franchise yolculuğumuza ilk adımı atıyoruz.
+            Sizi de bu büyümekte olan ailenin bir parçası yapmak istiyoruz.
           </p>
         </div>
       </section>
@@ -234,11 +312,18 @@ export function Franchise() {
                 Başvurunuz Alındı
               </h3>
               <p className="text-[rgba(245,240,232,0.55)] text-[0.9rem] leading-[1.8]">
-                Teşekkür ederiz! Franchise başvurunuzu aldık. Ekibimiz en geç 3 iş günü içinde sizinle iletişime geçecektir.
+                Teşekkür ederiz! Franchise başvurunuzu aldık. Ekibimiz en geç 3 iş günü içinde
+                sizinle iletişime geçecektir.
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              {serverError && (
+                <div className="border border-[rgb(var(--pepo-gold))]/35 bg-[rgba(196,154,42,0.06)] px-5 py-4 text-[rgba(245,240,232,0.8)] text-[0.9rem]">
+                  {serverError}
+                </div>
+              )}
+
               {/* Row 1 */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -316,11 +401,21 @@ export function Franchise() {
                       className={selectClass}
                       style={{ backgroundImage: selectArrowBg }}
                     >
-                      <option value="" className="bg-[rgb(var(--pepo-bg))]">Seçiniz</option>
-                      <option value="500k-750k" className="bg-[rgb(var(--pepo-bg))]">500.000₺ – 750.000₺</option>
-                      <option value="750k-1m" className="bg-[rgb(var(--pepo-bg))]">750.000₺ – 1.000.000₺</option>
-                      <option value="1m-2m" className="bg-[rgb(var(--pepo-bg))]">1.000.000₺ – 2.000.000₺</option>
-                      <option value="2m+" className="bg-[rgb(var(--pepo-bg))]">2.000.000₺ üzeri</option>
+                      <option value="" className="bg-[rgb(var(--pepo-bg))]">
+                        Seçiniz
+                      </option>
+                      <option value="500k-750k" className="bg-[rgb(var(--pepo-bg))]">
+                        500.000₺ – 750.000₺
+                      </option>
+                      <option value="750k-1m" className="bg-[rgb(var(--pepo-bg))]">
+                        750.000₺ – 1.000.000₺
+                      </option>
+                      <option value="1m-2m" className="bg-[rgb(var(--pepo-bg))]">
+                        1.000.000₺ – 2.000.000₺
+                      </option>
+                      <option value="2m+" className="bg-[rgb(var(--pepo-bg))]">
+                        2.000.000₺ üzeri
+                      </option>
                     </select>
                   </div>
                   {errors.butce && <p className={errorClass}>{errors.butce}</p>}
@@ -334,11 +429,21 @@ export function Franchise() {
                     className={selectClass}
                     style={{ backgroundImage: selectArrowBg }}
                   >
-                    <option value="" className="bg-[rgb(var(--pepo-bg))]">Seçiniz</option>
-                    <option value="yok" className="bg-[rgb(var(--pepo-bg))]">İş deneyimim yok</option>
-                    <option value="diger" className="bg-[rgb(var(--pepo-bg))]">Farklı sektörde deneyim</option>
-                    <option value="fnd" className="bg-[rgb(var(--pepo-bg))]">F&B / Yeme-içme sektöründe deneyim</option>
-                    <option value="franchise" className="bg-[rgb(var(--pepo-bg))]">Daha önce franchise işletmiş</option>
+                    <option value="" className="bg-[rgb(var(--pepo-bg))]">
+                      Seçiniz
+                    </option>
+                    <option value="yok" className="bg-[rgb(var(--pepo-bg))]">
+                      İş deneyimim yok
+                    </option>
+                    <option value="diger" className="bg-[rgb(var(--pepo-bg))]">
+                      Farklı sektörde deneyim
+                    </option>
+                    <option value="fnd" className="bg-[rgb(var(--pepo-bg))]">
+                      F&B / Yeme-içme sektöründe deneyim
+                    </option>
+                    <option value="franchise" className="bg-[rgb(var(--pepo-bg))]">
+                      Daha önce franchise işletmiş
+                    </option>
                   </select>
                 </div>
               </div>
@@ -356,14 +461,16 @@ export function Franchise() {
               </div>
 
               <div className="text-[rgba(245,240,232,0.35)] text-[0.72rem] leading-[1.7]">
-                * Kişisel verileriniz yalnızca franchise değerlendirme sürecinde kullanılacak ve üçüncü taraflarla paylaşılmayacaktır.
+                * Kişisel verileriniz yalnızca franchise değerlendirme sürecinde kullanılacak ve
+                üçüncü taraflarla paylaşılmayacaktır.
               </div>
 
               <button
                 type="submit"
-                className="bg-[rgb(var(--pepo-gold))] text-[rgb(var(--pepo-bg))] px-12 py-[1.1rem] tracking-[0.25em] text-[0.8rem] cursor-pointer transition-colors duration-200 hover:bg-[rgb(var(--pepo-gold-2))] self-start"
+                disabled={isSending}
+                className="bg-[rgb(var(--pepo-gold))] text-[rgb(var(--pepo-bg))] px-12 py-[1.1rem] tracking-[0.25em] text-[0.8rem] cursor-pointer transition-colors duration-200 hover:bg-[rgb(var(--pepo-gold-2))] self-start disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                BAŞVURUYU GÖNDER
+                {isSending ? "GÖNDERİLİYOR..." : "BAŞVURUYU GÖNDER"}
               </button>
             </form>
           )}

@@ -1,10 +1,9 @@
 import { ImageWithFallback } from "../../components/ImageWithFallback";
 
 const baristaImg =
-  "https://images.unsplash.com/photo-1770991966683-472a770d0ebf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjYWZlJTIwYmFyaXN0YSUyMGNvZmZlZSUyMHByZXBhcmF0aW9ufGVufDF8fHx8MTc3MTM2MzgwMnww&ixlib=rb-4.1.0&q=80&w=900";
-
+  "banner.jpeg";
 const stats = [
-  { num: "2025", label: "Kuruluş Yılı" },
+  { num: "2023", label: "Kuruluş Yılı" },
   { num: "100+", label: "Menü Seçeneği" },
   { num: "∞", label: "Sıcak Atmosfer" },
 ];
@@ -21,8 +20,7 @@ export function AboutSection() {
             className="w-full h-[520px] object-cover filter brightness-[0.85]"
           />
 
-          {/* Decorative square */}
-          <div className="pointer-events-none absolute -bottom-5 -right-5 w-[180px] h-[180px] border border-[#C49A2A]/40" />
+          {/* <div className="pointer-events-none absolute -bottom-5 -right-5 w-[180px] h-[180px] border border-[#C49A2A]/40" /> */}
         </div>
 
         {/* Right: Text */}

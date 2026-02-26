@@ -71,9 +71,6 @@ interface CareerForm {
 
 const selectChevronBg = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23C49A2A' stroke-width='1.5' fill='none'/></svg>")`;
 
-
-
-
 function SectionKicker({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-4 text-[0.72rem] tracking-[0.4em] text-[rgb(var(--pepo-gold))]">
@@ -108,6 +105,7 @@ const baseSelect =
 
 export function Career() {
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
+
   const [form, setForm] = useState<CareerForm>({
     adSoyad: "",
     telefon: "",
@@ -117,8 +115,11 @@ export function Career() {
     mesaj: "",
     cvDosya: "",
   });
+
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<CareerForm>>({});
+  const [isSending, setIsSending] = useState(false);
+  const [serverError, setServerError] = useState<string>("");
 
   const openForm = (positionId: string) => {
     const pos = positions.find((p) => p.id === positionId);
@@ -142,14 +143,59 @@ export function Career() {
     return errs;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setServerError("");
+
     const errs = validate();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
       return;
     }
-    setSubmitted(true);
+
+    setErrors({});
+    setIsSending(true);
+
+    try {
+      const payload = {
+        type: "career",
+        name: form.adSoyad,
+        email: form.email,
+        message: `Pozisyon: ${form.pozisyon || "-"}\nTelefon: ${
+          form.telefon || "-"
+        }\nDeneyim: ${form.deneyim || "-"}\nCV: ${form.cvDosya || "-"}\n\n${
+          form.mesaj || "-"
+        }`,
+        // ekstra alanlar (backend loglamak isterse)
+        telefon: form.telefon,
+        pozisyon: form.pozisyon,
+        deneyim: form.deneyim,
+        cvDosya: form.cvDosya,
+      };
+
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok) {
+        const msg =
+          data?.error ||
+          data?.message ||
+          "Gönderim sırasında bir hata oluştu. Tekrar dene.";
+        setServerError(msg);
+        return;
+      }
+
+      setSubmitted(true);
+    } catch (err: any) {
+      setServerError(err?.message || "Ağ hatası oluştu. Tekrar dene.");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -239,9 +285,7 @@ export function Career() {
               },
             ].map((v) => (
               <div key={v.title} className="flex flex-col items-center">
-                <div className="mb-4 text-[rgb(var(--pepo-gold))]">
-                  {v.icon}
-                </div>
+                <div className="mb-4 text-[rgb(var(--pepo-gold))]">{v.icon}</div>
                 <h3 className="mb-3 text-[1.2rem] font-normal text-[rgb(var(--pepo-text))]">
                   {v.title}
                 </h3>
@@ -274,7 +318,9 @@ export function Career() {
                   className={[
                     "border p-10 transition",
                     "border-[rgb(var(--pepo-gold))]/20 hover:border-[rgb(var(--pepo-gold))]/40",
-                    selected ? "bg-[rgb(var(--pepo-gold))]/[0.04]" : "bg-transparent",
+                    selected
+                      ? "bg-[rgb(var(--pepo-gold))]/[0.04]"
+                      : "bg-transparent",
                   ].join(" ")}
                 >
                   <div className="mb-4 flex items-start justify-between gap-4">
@@ -325,7 +371,10 @@ export function Career() {
       </section>
 
       {/* Application Form */}
-      <section id="basvuru-formu" className="bg-[rgb(var(--pepo-bg-2))] px-6 py-24">
+      <section
+        id="basvuru-formu"
+        className="bg-[rgb(var(--pepo-bg-2))] px-6 py-24"
+      >
         <div className="mx-auto max-w-3xl">
           <div className="mb-14 text-center">
             <SectionKicker>BAŞVURU FORMU</SectionKicker>
@@ -362,6 +411,7 @@ export function Career() {
                     }
                     placeholder="Adınız Soyadınız"
                     className={baseField}
+                    disabled={isSending}
                   />
                   <FieldError>{errors.adSoyad}</FieldError>
                 </div>
@@ -376,6 +426,7 @@ export function Career() {
                     }
                     placeholder="+90 5__ ___ __ __"
                     className={baseField}
+                    disabled={isSending}
                   />
                   <FieldError>{errors.telefon}</FieldError>
                 </div>
@@ -389,6 +440,7 @@ export function Career() {
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
                   placeholder="ornek@email.com"
                   className={baseField}
+                  disabled={isSending}
                 />
                 <FieldError>{errors.email}</FieldError>
               </div>
@@ -402,12 +454,17 @@ export function Career() {
                   }
                   className={baseSelect}
                   style={{ backgroundImage: selectChevronBg }}
+                  disabled={isSending}
                 >
                   <option value="" className="bg-[rgb(var(--pepo-bg))]">
                     Pozisyon seçiniz
                   </option>
                   {positions.map((p) => (
-                    <option key={p.id} value={p.title} className="bg-[rgb(var(--pepo-bg))]">
+                    <option
+                      key={p.id}
+                      value={p.title}
+                      className="bg-[rgb(var(--pepo-bg))]"
+                    >
                       {p.title}
                     </option>
                   ))}
@@ -424,6 +481,7 @@ export function Career() {
                   }
                   className={baseSelect}
                   style={{ backgroundImage: selectChevronBg }}
+                  disabled={isSending}
                 >
                   <option value="" className="bg-[rgb(var(--pepo-bg))]">
                     Seçiniz
@@ -451,6 +509,7 @@ export function Career() {
                   placeholder="Deneyimleriniz, ilgi alanlarınız ve neden PEPO ailesine katılmak istediğinizi kısaca anlatın..."
                   rows={5}
                   className={baseField + " resize-y"}
+                  disabled={isSending}
                 />
               </div>
 
@@ -464,8 +523,15 @@ export function Career() {
                   }
                   placeholder="LinkedIn linkiniz veya CV linkinizi buraya yapıştırabilirsiniz"
                   className={baseField}
+                  disabled={isSending}
                 />
               </div>
+
+              {serverError ? (
+                <div className="border border-[rgb(var(--pepo-gold))]/35 bg-[rgb(var(--pepo-gold))]/[0.04] px-5 py-4 text-[0.85rem] text-[rgb(var(--pepo-text))]/70">
+                  {serverError}
+                </div>
+              ) : null}
 
               <div className="text-[0.72rem] leading-7 text-[rgb(var(--pepo-text))]/35">
                 * Kişisel verileriniz yalnızca işe alım sürecinde kullanılacak ve
@@ -474,9 +540,10 @@ export function Career() {
 
               <button
                 type="submit"
-                className="self-start bg-[rgb(var(--pepo-gold))] px-12 py-4 text-[0.8rem] tracking-[0.25em] text-[rgb(var(--pepo-bg))] transition hover:bg-[rgb(var(--pepo-gold-2))]"
+                disabled={isSending}
+                className="self-start bg-[rgb(var(--pepo-gold))] px-12 py-4 text-[0.8rem] tracking-[0.25em] text-[rgb(var(--pepo-bg))] transition hover:bg-[rgb(var(--pepo-gold-2))] disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                BAŞVURUYU GÖNDER
+                {isSending ? "GÖNDERİLİYOR..." : "BAŞVURUYU GÖNDER"}
               </button>
             </form>
           )}
