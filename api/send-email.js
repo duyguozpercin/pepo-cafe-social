@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     if (!message || message.trim().length < 3) {
       return res.status(400).json({ error: "Message is required" });
     }
-
+""
     const data = await resend.emails.send({
       from: process.env.RESEND_FROM,      // ör: "PEPO <noreply@senindomainin.com>"
       to: process.env.RESEND_TO,          // ör: "seninmailin@gmail.com"
