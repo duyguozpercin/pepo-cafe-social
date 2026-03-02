@@ -52,7 +52,15 @@ export function DynamicForm({ type, title, description, children, onSubmit }: Dy
 
     setIsSending(true);
     try {
-      await onSubmit(form);
+
+      const dataToSend = new FormData();
+      dataToSend.append("adSoyad", form.adSoyad);
+      dataToSend.append("email", form.email);
+      dataToSend.append("telefon", form.telefon);
+      dataToSend.append("mesaj", form.mesaj);
+      dataToSend.append("type", type.toLowerCase());
+
+      await onSubmit(dataToSend);
       setSubmitted(true);
     } catch (error) {
       alert("Bir hata oluştu.");
