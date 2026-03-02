@@ -1,17 +1,16 @@
 import { ImageWithFallback } from "../components/ImageWithFallback";
-import { DynamicForm } from "../components/DynamicForm"; // Yeni bileşenimiz
+import { DynamicForm } from "../components/DynamicForm";
 
 const contactHeroImg =
   "https://images.unsplash.com/photo-1521017432531-fbd92d768814?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1400";
 
-// Alt bileşenleri (InfoCard vb.) dosyanın altında tutmaya devam edebilirsin
+
 function SectionKicker({ children }: { children: React.ReactNode }) {
   return <div className="mb-4 text-[0.72rem] tracking-[0.4em] text-[rgb(var(--pepo-gold))]">{children}</div>;
 }
 
 export function Contact() {
   
-  // API'ye gönderme fonksiyonu (Sadece iş mantığı kaldı)
   const handleContactSubmit = async (formData: any) => {
     const payload = {
       type: "contact",
@@ -32,7 +31,7 @@ export function Contact() {
 
   return (
     <div className="min-h-screen bg-[rgb(var(--pepo-bg))]">
-      {/* Hero Bölümü (Aynı Kalıyor) */}
+
       <section className="relative overflow-hidden px-6 pb-24 pt-40">
         <div className="absolute inset-0">
           <ImageWithFallback src={contactHeroImg} alt="İletişim" className="h-full w-full object-cover brightness-[0.18]" />
@@ -41,16 +40,15 @@ export function Contact() {
         <div className="relative mx-auto max-w-4xl text-center">
           <SectionKicker>BİZE ULAŞIN</SectionKicker>
           <h1 className="mb-6 font-normal leading-[1.1] text-[rgb(var(--pepo-text))] text-[clamp(2.5rem,6vw,5rem)]">İletişim</h1>
-          {/* ... Diğer Hero İçerikleri ... */}
+
         </div>
       </section>
 
-      {/* Info Bölümü (Aynı Kalıyor) */}
+
       <section className="bg-[rgb(var(--pepo-bg-2))] px-6 py-20">
-         {/* Adres, Telefon, Saat kartları burada durmaya devam ediyor */}
+
       </section>
 
-      {/* İŞTE SİHİRLİ DOKUNUŞ: Form Bölümü */}
       <section className="bg-[rgb(var(--pepo-bg))] px-6 py-24">
         <DynamicForm 
           type="İLETİŞİM"
@@ -58,9 +56,6 @@ export function Contact() {
           description="Formu doldur, ekibimiz dönüş yapsın."
           onSubmit={handleContactSubmit}
         >
-          {/* İletişim sayfasına özel ekstra bir alan istersen buraya yazabilirsin.
-             Örneğin: Bir 'Konu' seçimi ekleyelim.
-          */}
           <div className="mb-6">
             <label className="mb-2 block text-[0.72rem] tracking-[0.2em] text-[rgb(var(--pepo-text))]/65 uppercase">Konu</label>
             <input 
@@ -75,4 +70,3 @@ export function Contact() {
   );
 }
 
-// Yardımcı bileşenlerin (InfoCard vs.) burada kalabilir...

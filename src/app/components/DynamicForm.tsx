@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// Stil sabitlerini buraya da ekliyoruz ki tutarlı olsun
 const baseField = "w-full bg-[rgb(var(--pepo-text))]/[0.04] border border-[rgb(var(--pepo-gold))]/25 px-5 py-[0.85rem] text-[0.95rem] text-[rgb(var(--pepo-text))] outline-none transition focus:border-[rgb(var(--pepo-gold))]/70";
 
 function FieldLabel({ children }: { children: React.ReactNode }) {
@@ -16,8 +15,8 @@ interface DynamicFormProps {
   type: "İLETİŞİM" | "FRANCHISE" | "KARİYER";
   title: string;
   description: string;
-  children?: React.ReactNode; // Sayfaya özel alanlar buraya gelecek
-  onSubmit: (formData: any) => Promise<void>; // Dışarıdan gelen gönderim fonksiyonu
+  children?: React.ReactNode;
+  onSubmit: (formData: any) => Promise<void>;
 }
 
 export function DynamicForm({ type, title, description, children, onSubmit }: DynamicFormProps) {
@@ -50,10 +49,10 @@ export function DynamicForm({ type, title, description, children, onSubmit }: Dy
       setErrors(errs);
       return;
     }
-    
+
     setIsSending(true);
     try {
-      await onSubmit(form); // Üst sayfadan gelen fonksiyonu çalıştır
+      await onSubmit(form);
       setSubmitted(true);
     } catch (error) {
       alert("Bir hata oluştu.");
@@ -81,31 +80,37 @@ export function DynamicForm({ type, title, description, children, onSubmit }: Dy
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        {/* Ortak Alan: Ad Soyad */}
-        <div>
-          <FieldLabel>AD SOYAD *</FieldLabel>
-          <input
-            className={baseField}
-            value={form.adSoyad}
-            onChange={(e) => setForm({ ...form, adSoyad: e.target.value })}
-            placeholder="Adınız Soyadınız"
-          />
-          <FieldError>{errors.adSoyad}</FieldError>
+
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+
+          <div>
+            <FieldLabel>AD SOYAD *</FieldLabel>
+            <input
+              className={baseField}
+              value={form.adSoyad}
+              onChange={(e) => setForm({ ...form, adSoyad: e.target.value })}
+              placeholder="Adınız Soyadınız"
+            />
+            <FieldError>{errors.adSoyad}</FieldError>
+          </div>
+
+
+          <div>
+            <FieldLabel>TELEFON</FieldLabel>
+            <input
+              className={baseField}
+              value={form.telefon}
+              onChange={(e) => {
+                const val = e.target.value;
+                const filteredVal = val.replace(/[^0-9+\s]/g, "");
+                setForm({ ...form, telefon: filteredVal });
+              }}
+              placeholder="+90 5__ ___ __ __"
+            />
+            <FieldError>{errors.telefon}</FieldError>
+          </div>
         </div>
 
-        {/* Ortak Alan: Telefon */}
-        <div>
-          <FieldLabel>TELEFON</FieldLabel>
-          <input
-            className={baseField}
-            value={form.telefon}
-            onChange={(e) => setForm({ ...form, telefon: e.target.value })}
-            placeholder="+90 5__ ___ __ __"
-          />
-          <FieldError>{errors.telefon}</FieldError>
-        </div>
-
-        {/* Ortak Alan: Email */}
         <div>
           <FieldLabel>E-POSTA *</FieldLabel>
           <input
@@ -117,10 +122,8 @@ export function DynamicForm({ type, title, description, children, onSubmit }: Dy
           <FieldError>{errors.email}</FieldError>
         </div>
 
-        {/* --- ÖZEL ALANLAR BURAYA GELECEK --- */}
         {children}
 
-        {/* Ortak Alan: Mesaj */}
         <div>
           <FieldLabel>MESAJ *</FieldLabel>
           <textarea
