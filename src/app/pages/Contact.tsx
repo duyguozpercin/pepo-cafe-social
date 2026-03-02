@@ -80,10 +80,19 @@ export function Contact() {
 
   const validate = () => {
     const errs: Partial<ContactForm> = {};
+
     if (!form.adSoyad.trim()) errs.adSoyad = "Ad Soyad zorunludur.";
+
     if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email))
       errs.email = "Geçerli bir e-posta girin.";
+
+    const phoneRegex = /^[0-9+\s]*$/;
+    if (form.telefon.trim() && !phoneRegex.test(form.telefon)) {
+      errs.telefon = "Lütfen geçerli bir telefon numarası girin.";
+    }
+
     if (!form.mesaj.trim()) errs.mesaj = "Mesaj zorunludur.";
+
     return errs;
   };
 
@@ -106,7 +115,6 @@ export function Contact() {
         name: form.adSoyad,
         email: form.email,
         message: `Konu: ${form.konu || "-"}\nTelefon: ${form.telefon || "-"}\n\n${form.mesaj}`,
-        // ekstra alanlar (backend rest ile listeler)
         telefon: form.telefon,
         konu: form.konu,
       };
@@ -128,7 +136,6 @@ export function Contact() {
         return;
       }
 
-      // API success
       setSubmitted(true);
     } catch (err: any) {
       setServerError(err?.message || "Ağ hatası oluştu. Tekrar dene.");
@@ -139,7 +146,7 @@ export function Contact() {
 
   return (
     <div className="min-h-screen bg-[rgb(var(--pepo-bg))]">
-      {/* Hero */}
+
       <section className="relative overflow-hidden px-6 pb-24 pt-40">
         <div className="absolute inset-0">
           <ImageWithFallback
@@ -179,7 +186,6 @@ export function Contact() {
         </div>
       </section>
 
-      {/* Info */}
       <section className="bg-[rgb(var(--pepo-bg-2))] px-6 py-20">
         <div className="mx-auto max-w-7xl">
           <div className="mb-14 text-center">
@@ -203,7 +209,6 @@ export function Contact() {
             />
           </div>
 
-          {/* Map / Image strip */}
           <div className="relative mt-10 h-[280px] overflow-hidden">
             <ImageWithFallback
               src={contactHeroImg}
@@ -231,7 +236,6 @@ export function Contact() {
         </div>
       </section>
 
-      {/* Form */}
       <section className="bg-[rgb(var(--pepo-bg))] px-6 py-24">
         <div className="mx-auto max-w-3xl">
           <div className="mb-14 text-center">
@@ -277,13 +281,16 @@ export function Contact() {
                   <input
                     type="tel"
                     value={form.telefon}
-                    onChange={(e) =>
-                      setForm((f) => ({ ...f, telefon: e.target.value }))
-                    }
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      const filteredVal = val.replace(/[^0-9+\s]/g, "");
+                      setForm((f) => ({ ...f, telefon: filteredVal }));
+                    }}
                     placeholder="+90 5__ ___ __ __"
                     className={baseField}
                     disabled={isSending}
                   />
+                  <FieldError>{errors.telefon}</FieldError>
                 </div>
               </div>
 
