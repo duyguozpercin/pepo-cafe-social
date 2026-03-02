@@ -114,32 +114,6 @@ export function Career() {
     if (!res.ok) throw new Error("Gönderim hatası");
   };
 
-  // JSX içindeki dosya alanı:
-  <div className="mb-6">
-    <label className={labelClass}>CV / ÖZGEÇMİŞ YÜKLE (PDF/DOCX) *</label>
-    <div className="relative group">
-      <input
-        name="cvFile"
-        type="file"
-        accept=".pdf,.doc,.docx"
-        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-        onChange={(e) => {
-          const fileName = e.target.files?.[0]?.name;
-          const label = document.getElementById("file-label");
-          if (label && fileName) label.innerText = fileName;
-        }}
-      />
-      <div className="w-full bg-[rgb(var(--pepo-text))]/[0.04] border border-[rgb(var(--pepo-gold))]/25 px-5 py-[0.85rem] text-[0.95rem] text-[rgb(var(--pepo-text))]/40 flex justify-between items-center group-hover:border-[rgb(var(--pepo-gold))]/70 transition">
-        <span id="file-label">Dosya seçilmedi...</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
-        </svg>
-      </div>
-    </div>
-    <p className="mt-2 text-[0.65rem] text-[rgb(var(--pepo-text))]/30 uppercase tracking-widest">
-      Maksimum dosya boyutu: 5MB
-    </p>
-  </div>
 
   return (
     <div className="min-h-screen bg-[rgb(var(--pepo-bg))]">
@@ -264,15 +238,31 @@ export function Career() {
             </div>
           </div>
 
-          {/* CV Dosya / Link */}
+// JSX içindeki dosya alanı:
           <div className="mb-6">
-            <label className={labelClass}>CV / ÖZGEÇMIŞ (LINK VEYA NOT)</label>
-            <input
-              name="cvDosya"
-              type="text"
-              className={baseField}
-              placeholder="LinkedIn veya Google Drive linkinizi ekleyebilirsiniz"
-            />
+            <label className={labelClass}>CV / ÖZGEÇMİŞ YÜKLE (PDF/DOCX) *</label>
+            <div className="relative group">
+              <input
+                name="cvFile"
+                type="file"
+                accept=".pdf,.doc,.docx"
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                onChange={(e) => {
+                  const fileName = e.target.files?.[0]?.name;
+                  const label = document.getElementById("file-label");
+                  if (label && fileName) label.innerText = fileName;
+                }}
+              />
+              <div className="w-full bg-[rgb(var(--pepo-text))]/[0.04] border border-[rgb(var(--pepo-gold))]/25 px-5 py-[0.85rem] text-[0.95rem] text-[rgb(var(--pepo-text))]/40 flex justify-between items-center group-hover:border-[rgb(var(--pepo-gold))]/70 transition">
+                <span id="file-label">Dosya seçilmedi...</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+                </svg>
+              </div>
+            </div>
+            <p className="mt-2 text-[0.65rem] text-[rgb(var(--pepo-text))]/30 uppercase tracking-widest">
+              Maksimum dosya boyutu: 5MB
+            </p>
           </div>
         </DynamicForm>
       </section>
