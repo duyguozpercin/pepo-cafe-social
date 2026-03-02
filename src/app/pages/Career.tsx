@@ -88,30 +88,17 @@ export function Career() {
     document.getElementById("basvuru-formu")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Career.tsx içinde
   const handleCareerSubmit = async (formData: FormData) => {
-    // Sayfaya özel alanları FormData'ya ekliyoruz
-    const pozisyon = (document.getElementsByName("pozisyon")[0] as HTMLSelectElement).value;
-    const deneyim = (document.getElementsByName("deneyim")[0] as HTMLSelectElement).value;
-    const fileInput = document.getElementsByName("cvFile")[0] as HTMLInputElement;
-
-    formData.append("pozisyon", pozisyon);
-    formData.append("deneyim", deneyim);
-
-    if (fileInput.files && fileInput.files[0]) {
-      formData.append("cv", fileInput.files[0]);
-    } else {
-      alert("Lütfen bir CV dosyası seçin.");
-      throw new Error("Dosya eksik");
-    }
-
     const res = await fetch("/api/send-email", {
       method: "POST",
-      // Not: FormData gönderirken 'Content-Type' header'ı manuel set edilmez, tarayıcı halleder.
+      // Not: FormData gönderirken Content-Type başlığı eklemeyin!
       body: formData,
     });
 
-    if (!res.ok) throw new Error("Gönderim hatası");
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.error || "Sunucu hatası");
+    }
   };
 
 
@@ -238,7 +225,6 @@ export function Career() {
             </div>
           </div>
 
-// JSX içindeki dosya alanı:
           <div className="mb-6">
             <label className={labelClass}>CV / ÖZGEÇMİŞ YÜKLE (PDF/DOCX) *</label>
             <div className="relative group">

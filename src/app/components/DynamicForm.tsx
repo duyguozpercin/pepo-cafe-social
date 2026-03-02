@@ -42,6 +42,7 @@ export function DynamicForm({ type, title, description, children, onSubmit }: Dy
     return errs;
   };
 
+  // DynamicForm.tsx içindeki handleSubmit fonksiyonu
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs = validate();
@@ -52,18 +53,27 @@ export function DynamicForm({ type, title, description, children, onSubmit }: Dy
 
     setIsSending(true);
     try {
+      const formData = new FormData();
+      formData.append("type", type.toLowerCase());
+      formData.append("adSoyad", form.adSoyad);
+      formData.append("email", form.email);
+      formData.append("telefon", form.telefon);
+      formData.append("mesaj", form.mesaj);
 
-      const dataToSend = new FormData();
-      dataToSend.append("adSoyad", form.adSoyad);
-      dataToSend.append("email", form.email);
-      dataToSend.append("telefon", form.telefon);
-      dataToSend.append("mesaj", form.mesaj);
-      dataToSend.append("type", type.toLowerCase());
+      // Dışarıdaki (Sayfaya özel) alanları otomatik topla
+      const customInputs = e.currentTarget.querySelectorAll('input[name], select[name], textarea[name]');
+      customInputs.forEach((input: any) => {
+        if (input.type === 'file') {
+          if (input.files[0]) formData.append("cv", input.files[0]);
+        } else {
+          formData.append(input.name, input.value);
+        }
+      });
 
-      await onSubmit(dataToSend);
+      await onSubmit(formData); // Güncellenmiş FormData'yı gönder
       setSubmitted(true);
     } catch (error) {
-      alert("Bir hata oluştu.");
+      alert("Gönderim hatası oluştu.");
     } finally {
       setIsSending(false);
     }
