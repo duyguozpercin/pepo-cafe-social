@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
     Component: Layout,
     children: [
       { index: true, Component: Home },
-      { path: "menu", Component: Menu },
+      // { path: "menu", Component: Menu },
       { path: "franchise", Component: Franchise },
       { path: "kariyer", Component: Career },
       { path: "iletisim", Component: Contact },
