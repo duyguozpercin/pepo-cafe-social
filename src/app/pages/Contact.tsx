@@ -10,9 +10,9 @@ function SectionKicker({ children }: { children: React.ReactNode }) {
 }
 
 export function Contact() {
-
+  
   const handleContactSubmit = async (formData: any) => {
-    // JSON yerine FormData nesnesi oluşturuyoruz
+    // Backend'deki formidable yapısına uygun olarak FormData kullanıyoruz
     const data = new FormData();
     data.append("type", "contact");
     data.append("adSoyad", formData.adSoyad);
@@ -22,8 +22,7 @@ export function Contact() {
 
     const res = await fetch("/api/send-email", {
       method: "POST",
-      // DİKKAT: FormData kullanırken 'Content-Type' header'ını manuel eklemeyin!
-      // Tarayıcı bunu otomatik olarak "multipart/form-data; boundary=..." yapar.
+      // Content-Type header'ı eklemiyoruz, FormData ile otomatik ayarlanır
       body: data,
     });
 
@@ -51,7 +50,7 @@ export function Contact() {
       </section>
 
       <section className="bg-[rgb(var(--pepo-bg))] px-6 py-24">
-        <DynamicForm
+        <DynamicForm 
           type="İLETİŞİM"
           title="İletişim Formu"
           description="Formu doldur, ekibimiz dönüş yapsın."
@@ -59,7 +58,7 @@ export function Contact() {
         >
           <div className="mb-6">
             <label className="mb-2 block text-[0.72rem] tracking-[0.2em] text-[rgb(var(--pepo-text))]/65 uppercase">Konu</label>
-            <input
+            <input 
               name="konu"
               className="w-full bg-[rgb(var(--pepo-text))]/[0.04] border border-[rgb(var(--pepo-gold))]/25 px-5 py-[0.85rem] text-[0.95rem] text-white outline-none"
               placeholder="Örn: Rezervasyon"
@@ -70,4 +69,3 @@ export function Contact() {
     </div>
   );
 }
-
