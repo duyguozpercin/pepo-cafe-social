@@ -33,8 +33,10 @@ export default async function handler(req, res) {
 
     try {
       // Formidable verileri dizi olarak döndürebilir, ilk elemanları alıyoruz
-      const getValue = (key) =>
-        Array.isArray(fields?.[key]) ? fields[key][0] : fields?.[key];
+      const getValue = (key) => {
+        const val = fields?.[key];
+        return Array.isArray(val) ? val[0] : val;
+      };
 
       const type = getValue("type");
       const name = getValue("adSoyad") || getValue("name");

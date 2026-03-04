@@ -10,20 +10,21 @@ function SectionKicker({ children }: { children: React.ReactNode }) {
 }
 
 export function Contact() {
-  
+
   const handleContactSubmit = async (formData: any) => {
-    const payload = {
-      type: "contact",
-      name: formData.adSoyad,
-      email: formData.email,
-      message: `Telefon: ${formData.telefon || "-"}\n\n${formData.mesaj}`,
-      telefon: formData.telefon,
-    };
+    // JSON yerine FormData nesnesi oluşturuyoruz
+    const data = new FormData();
+    data.append("type", "contact");
+    data.append("adSoyad", formData.adSoyad);
+    data.append("email", formData.email);
+    data.append("telefon", formData.telefon);
+    data.append("mesaj", formData.mesaj);
 
     const res = await fetch("/api/send-email", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      // DİKKAT: FormData kullanırken 'Content-Type' header'ını manuel eklemeyin!
+      // Tarayıcı bunu otomatik olarak "multipart/form-data; boundary=..." yapar.
+      body: data,
     });
 
     if (!res.ok) throw new Error("Gönderilemedi");
@@ -50,7 +51,7 @@ export function Contact() {
       </section>
 
       <section className="bg-[rgb(var(--pepo-bg))] px-6 py-24">
-        <DynamicForm 
+        <DynamicForm
           type="İLETİŞİM"
           title="İletişim Formu"
           description="Formu doldur, ekibimiz dönüş yapsın."
@@ -58,7 +59,7 @@ export function Contact() {
         >
           <div className="mb-6">
             <label className="mb-2 block text-[0.72rem] tracking-[0.2em] text-[rgb(var(--pepo-text))]/65 uppercase">Konu</label>
-            <input 
+            <input
               name="konu"
               className="w-full bg-[rgb(var(--pepo-text))]/[0.04] border border-[rgb(var(--pepo-gold))]/25 px-5 py-[0.85rem] text-[0.95rem] text-white outline-none"
               placeholder="Örn: Rezervasyon"
