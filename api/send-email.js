@@ -47,9 +47,10 @@ export default async function handler(req, res) {
       const sehir = getValue("sehir");
       const butce = getValue("butce");
 
-      const formType = String(type || "contact");
+       const formType = String(type || "contact");
       const subject = formType === "franchise" ? "PEPO | Franchise Başvurusu" : 
-                      formType === "career" ? "PEPO | Kariyer Başvurusu" : "PEPO | İletişim Mesajı";
+                      formType === "career" ? "PEPO | İş Başvurusu" : "PEPO | İletişim Mesajı";
+      
 
       let html = `<h3>${esc(subject)}</h3>
                   <p><b>Ad Soyad:</b> ${esc(name)}</p>
