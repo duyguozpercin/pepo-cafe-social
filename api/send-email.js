@@ -49,7 +49,7 @@ export default async function handler(req, res) {
 
        const formType = String(type || "contact");
       const subject = formType === "franchise" ? "PEPO | Franchise Başvurusu" : 
-                      formType === "career" ? "PEPO | İş Başvurusu" : "PEPO | İletişim Mesajı";
+                      formType === "kariyer" ? "PEPO | İş Başvurusu" : "PEPO | İletişim Mesajı";
       
 
       let html = `<h3>${esc(subject)}</h3>
