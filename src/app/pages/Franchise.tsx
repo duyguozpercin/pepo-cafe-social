@@ -1,4 +1,3 @@
-
 import { ImageWithFallback } from "../components/ImageWithFallback";
 import { DynamicForm } from "../components/DynamicForm";
 
@@ -20,63 +19,57 @@ const steps = [
   { num: "06", title: "Açılış", desc: "Pepo ailesine hoş geldiniz!" },
 ];
 
-
 const baseField = "w-full bg-[rgb(var(--pepo-text))]/[0.04] border border-[rgb(var(--pepo-gold))]/25 px-5 py-[0.85rem] text-[0.95rem] text-[rgb(var(--pepo-text))] outline-none transition focus:border-[rgb(var(--pepo-gold))]/70";
 const labelClass = "mb-2 block text-[0.72rem] tracking-[0.2em] text-[rgb(var(--pepo-text))]/65 uppercase";
 
 export function Franchise() {
 
-  const handleFranchiseSubmit = async (formData: any) => {
+  const handleFranchiseSubmit = async (formData: FormData) => {
+    // DynamicForm, 'name' özelliği olan inputları (sehir, konum, butce, deneyim) 
+    // otomatik olarak bu formData nesnesine eklemiştir.
 
-    const customFields = {
-      sehir: (document.getElementsByName("sehir")[0] as HTMLInputElement).value,
-      konum: (document.getElementsByName("konum")[0] as HTMLInputElement).value,
-      butce: (document.getElementsByName("butce")[0] as HTMLSelectElement).value,
-      deneyim: (document.getElementsByName("deneyim")[0] as HTMLSelectElement).value,
-    };
+    const sehir = formData.get("sehir");
+    const butce = formData.get("butce");
 
-    if (!customFields.sehir || !customFields.butce) {
+    if (!sehir || !butce) {
       alert("Lütfen Şehir ve Bütçe alanlarını doldurun.");
-      throw new Error("Eksik alan");
+      throw new Error("Eksik zorunlu alanlar");
     }
-
-    const payload = {
-      type: "franchise",
-      ...formData,
-      ...customFields
-    };
 
     const res = await fetch("/api/send-email", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+      // Content-Type eklemiyoruz; FormData gönderirken tarayıcı otomatik ayarlar.
+      body: formData, 
     });
 
-    if (!res.ok) throw new Error("Gönderim hatası");
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({}));
+      throw new Error(errorData.error || "Gönderim sırasında bir hata oluştu.");
+    }
   };
 
   return (
     <div className="min-h-screen bg-[rgb(var(--pepo-bg))]">
-      {/* Hero */}
+      {/* Hero Section */}
       <section className="relative pt-40 pb-28 px-6 overflow-hidden text-center">
         <div className="absolute inset-0">
           <ImageWithFallback src={franchiseImg} alt="Franchise" className="w-full h-full object-cover brightness-[0.2]" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-[rgb(var(--pepo-bg))]" />
         </div>
         <div className="relative max-w-4xl mx-auto">
-          <div className="text-[rgb(var(--pepo-gold))] text-[0.72rem] tracking-[0.4em] mb-5">BİZİMLE BÜYÜYÜN</div>
+          <div className="text-[rgb(var(--pepo-gold))] text-[0.72rem] tracking-[0.4em] mb-5 uppercase">Bizimle Büyüyün</div>
           <h1 className="text-[rgb(var(--pepo-text))] font-normal mb-6 text-[clamp(2.5rem,6vw,5rem)]">PEPO Franchise</h1>
-          <p className="text-[rgb(var(--pepo-text))]/60 max-w-[600px] mx-auto leading-[1.9]">
+          <p className="text-[rgb(var(--pepo-text))]/60 max-w-[600px] mx-auto leading-[1.9] text-[1rem]">
             PEPO Coffee & Social olarak sizi de bu büyümekte olan ailenin bir parçası yapmak istiyoruz.
           </p>
         </div>
       </section>
 
-      {/* Avantajlar Bölümü */}
+      {/* Benefits Section */}
       <section className="bg-[rgb(var(--pepo-bg-2))] py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <div className="text-[rgb(var(--pepo-gold))] text-[0.72rem] tracking-[0.4em] mb-4">NEDEN PEPO?</div>
+            <div className="text-[rgb(var(--pepo-gold))] text-[0.72rem] tracking-[0.4em] mb-4 uppercase">Neden PEPO?</div>
             <h2 className="text-[rgb(var(--pepo-text))] font-normal text-[clamp(1.8rem,3.5vw,2.8rem)]">Franchise Avantajlarımız</h2>
           </div>
 
@@ -91,11 +84,11 @@ export function Franchise() {
         </div>
       </section>
 
-      {/* Süreç Bölümü */}
+      {/* Steps Section */}
       <section className="bg-[rgb(var(--pepo-bg))] py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <div className="text-[rgb(var(--pepo-gold))] text-[0.72rem] tracking-[0.4em] mb-4">SÜREÇ</div>
+            <div className="text-[rgb(var(--pepo-gold))] text-[0.72rem] tracking-[0.4em] mb-4 uppercase">Süreç</div>
             <h2 className="text-[rgb(var(--pepo-text))] font-normal text-[clamp(1.8rem,3.5vw,2.8rem)]">Nasıl Çalışır?</h2>
           </div>
 
@@ -112,15 +105,15 @@ export function Franchise() {
         </div>
       </section>
 
-      {/* FORM BÖLÜMÜ */}
-      <section className="bg-[rgb(var(--pepo-bg))] py-24 px-6">
+      {/* Form Section */}
+      <section className="bg-[rgb(var(--pepo-bg-2))] py-24 px-6">
         <DynamicForm
           type="FRANCHISE"
           title="Franchise Başvurusu"
           description="Formu doldurun, ekibimiz en kısa sürede sizinle iletişime geçsin."
           onSubmit={handleFranchiseSubmit}
         >
-          {/* FRANCHISE ÖZEL ALANLAR */}
+          {/* Özel Alanlar: Şehir ve Konum */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <label className={labelClass}>ŞEHİR *</label>
@@ -132,6 +125,7 @@ export function Franchise() {
             </div>
           </div>
 
+          {/* Özel Alanlar: Bütçe ve Deneyim */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <label className={labelClass}>YATIRIM BÜTÇESİ *</label>
