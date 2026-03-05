@@ -34,23 +34,24 @@ export default async function handler(req, res) {
     try {
       // Formidable verileri dizi olarak döndürebilir, ilk elemanları alıyoruz
       const getValue = (key) => (Array.isArray(fields[key]) ? fields[key][0] : fields[key]);
-      
+
       const type = getValue("type");
       const name = getValue("adSoyad") || getValue("name");
       const email = getValue("email");
       const telefon = getValue("telefon");
       const mesaj = getValue("mesaj") || getValue("message");
-      
+
       // Kariyer ve Franchise özel alanları
       const pozisyon = getValue("pozisyon");
       const deneyim = getValue("deneyim");
       const sehir = getValue("sehir");
       const butce = getValue("butce");
 
-       const formType = String(type || "contact");
-      const subject = formType === "franchise" ? "PEPO | Franchise Başvurusu" : 
-                      formType === "kariyer" ? "PEPO | İş Başvurusu" : "PEPO | İletişim Mesajı";
-      
+      const formType = String(type || "contact").toLowerCase().trim();
+      const subject =
+        (formType === "franchise") ? "PEPO | Franchise Başvurusu" :
+          (formType === "kariyer" || formType === "career") ? "PEPO | İş Başvurusu" :
+            "PEPO | İletişim Mesajı";
 
       let html = `<h3>${esc(subject)}</h3>
                   <p><b>Ad Soyad:</b> ${esc(name)}</p>
@@ -60,7 +61,7 @@ export default async function handler(req, res) {
       if (formType === "franchise") {
         html += `<p><b>Şehir:</b> ${esc(sehir)}</p>
                  <p><b>Yatırım Bütçesi:</b> ${esc(butce)}</p>`;
-      } else if (formType === "career") {
+      } else if (formType === "kariyer" || formType === "career") {
         html += `<p><b>Başvurulan Pozisyon:</b> ${esc(pozisyon)}</p>
                  <p><b>Deneyim:</b> ${esc(deneyim)}</p>`;
       }
