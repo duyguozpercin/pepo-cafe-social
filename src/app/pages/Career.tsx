@@ -88,18 +88,18 @@ export function Career() {
     document.getElementById("basvuru-formu")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleCareerSubmit = async (formData: FormData) => {
-    const res = await fetch("/api/send-email", {
-      method: "POST",
-      // Not: FormData gönderirken Content-Type başlığı eklemeyin!
-      body: formData,
-    });
+ const handleCareerSubmit = async (formData: FormData) => {
+  const res = await fetch("/api/send-email", {
+    method: "POST",
+    // Not: FormData gönderirken Content-Type başlığı eklemeyin!
+    body: formData,
+  });
 
-    if (!res.ok) {
-      const errorData = await res.json();
-      throw new Error(errorData.error || "Sunucu hatası");
-    }
-  };
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.error || "Sunucu hatası");
+  }
+};
 
 
   return (
