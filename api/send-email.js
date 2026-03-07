@@ -48,9 +48,12 @@ export default async function handler(req, res) {
       const butce = getValue("butce");
 
       const formType = String(type || "contact").toLowerCase().trim();
+
       const subject =
-        (formType === "franchise") ? "PEPO | Franchise Başvurusu" :
-          (formType === "kariyer" || formType === "career") ? "PEPO | İş Başvurusu" :
+        (formType === "franchise")
+          ? "PEPO | Franchise Başvurusu" :
+          (formType === "kariyer" || formType === "karıyer" || formType === "career")
+            ? "PEPO | İş Başvurusu" :
             "PEPO | İletişim Mesajı";
 
       let html = `<h3>${esc(subject)}</h3>
@@ -60,10 +63,10 @@ export default async function handler(req, res) {
 
       if (formType === "franchise") {
         html += `<p><b>Şehir:</b> ${esc(sehir)}</p>
-                 <p><b>Yatırım Bütçesi:</b> ${esc(butce)}</p>`;
-      } else if (formType === "kariyer" || formType === "career") {
+           <p><b>Yatırım Bütçesi:</b> ${esc(butce)}</p>`;
+      } else if (formType === "kariyer" || formType === "karıyer" || formType === "career") {
         html += `<p><b>Başvurulan Pozisyon:</b> ${esc(pozisyon)}</p>
-                 <p><b>Deneyim:</b> ${esc(deneyim)}</p>`;
+           <p><b>Deneyim:</b> ${esc(deneyim)}</p>`;
       }
 
       html += `<hr /><p><b>Mesaj:</b><br/>${nl2br(mesaj)}</p>`;
