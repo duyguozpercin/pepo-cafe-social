@@ -2,7 +2,7 @@ import { Resend } from "resend";
 import formidable from "formidable";
 import fs from "fs";
 
-// Next.js'in varsayılan body parser'ını kapatıyoruz (Dosya okumak için şart)
+// Next.js body parser'ı devre dışı bırakıyoruz
 export const config = {
   api: {
     bodyParser: false,
@@ -11,6 +11,7 @@ export const config = {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// HTML Güvenliği için XSS koruması
 const esc = (v) =>
   String(v ?? "-")
     .replace(/&/g, "&amp;")
@@ -26,75 +27,86 @@ export default async function handler(req, res) {
 
   const form = formidable({ multiples: false });
 
-  form.parse(req, async (err, fields, files) => {
-    if (err) {
-      return res.status(500).json({ ok: false, error: "Form işleme hatası" });
-    }
+  // Formidable'ı promise yapısında kullanarak hata yönetimini iyileştiriyoruz
+  try {
+    const [fields, files] = await new Promise((resolve, reject) => {
+      form.parse(req, (err, fields, files) => {
+        if (err) reject(err);
+        resolve([fields, files]);
+      });
+    });
 
-    try {
-      // Formidable verileri dizi olarak döndürebilir, ilk elemanları alıyoruz
-      const getValue = (key) => (Array.isArray(fields[key]) ? fields[key][0] : fields[key]);
+    // Formidable verileri dizi olarak döner, güvenli şekilde alıyoruz
+    const getValue = (key) => (Array.isArray(fields[key]) ? fields[key][0] : fields[key]);
 
-      const type = getValue("type");
-      const name = getValue("adSoyad") || getValue("name");
-      const email = getValue("email");
-      const telefon = getValue("telefon");
-      const mesaj = getValue("mesaj") || getValue("message");
+    // TYPE KONTROLÜ (Kritik Düzeltme: Türkçe karakter toleransı)
+    const rawType = getValue("type") || "contact";
+    const formType = rawType.toLowerCase().trim();
 
-      // Kariyer ve Franchise özel alanları
-      const pozisyon = getValue("pozisyon");
-      const deneyim = getValue("deneyim");
+    // Kariyer başvurusu için hem 'career' hem de 'kariyer/karıyer' ihtimallerini kontrol ediyoruz
+    const isCareer = ["career", "kariyer", "karıyer"].includes(formType);
+    const isFranchise = formType === "franchise";
+
+    const subject = isFranchise
+      ? "PEPO | Franchise Başvurusu"
+      : isCareer
+      ? "PEPO | İş Başvurusu"
+      : "PEPO | İletişim Mesajı";
+
+    // Ortak Alanlar
+    const name = getValue("adSoyad") || getValue("name");
+    const email = getValue("email");
+    const telefon = getValue("telefon");
+    const mesaj = getValue("mesaj") || getValue("message");
+
+    let html = `<h3>${esc(subject)}</h3>
+                <p><b>Ad Soyad:</b> ${esc(name)}</p>
+                <p><b>Email:</b> ${esc(email)}</p>
+                <p><b>Telefon:</b> ${esc(telefon)}</p>`;
+
+    // Özel Alanlar
+    if (isFranchise) {
       const sehir = getValue("sehir");
       const butce = getValue("butce");
-
-      const formType = String(type || "contact").toLowerCase().trim();
-
-      const subject =
-        (formType === "franchise")
-          ? "PEPO | Franchise Başvurusu" :
-          (formType === "kariyer" || formType === "karıyer" || formType === "career")
-            ? "PEPO | İş Başvurusu" :
-            "PEPO | İletişim Mesajı";
-
-      let html = `<h3>${esc(subject)}</h3>
-                  <p><b>Ad Soyad:</b> ${esc(name)}</p>
-                  <p><b>Email:</b> ${esc(email)}</p>
-                  <p><b>Telefon:</b> ${esc(telefon)}</p>`;
-
-      if (formType === "franchise") {
-        html += `<p><b>Şehir:</b> ${esc(sehir)}</p>
-           <p><b>Yatırım Bütçesi:</b> ${esc(butce)}</p>`;
-      } else if (formType === "kariyer" || formType === "karıyer" || formType === "career") {
-        html += `<p><b>Başvurulan Pozisyon:</b> ${esc(pozisyon)}</p>
-           <p><b>Deneyim:</b> ${esc(deneyim)}</p>`;
-      }
-
-      html += `<hr /><p><b>Mesaj:</b><br/>${nl2br(mesaj)}</p>`;
-
-      // Dosya (CV) kontrolü
-      const attachments = [];
-      const uploadedFile = Array.isArray(files.cv) ? files.cv[0] : files.cv;
-
-      if (uploadedFile) {
-        const fileContent = fs.readFileSync(uploadedFile.filepath);
-        attachments.push({
-          filename: uploadedFile.originalFilename || "cv.pdf",
-          content: fileContent,
-        });
-      }
-
-      const data = await resend.emails.send({
-        from: process.env.RESEND_FROM,
-        to: process.env.RESEND_TO,
-        replyTo: email ? [email] : undefined,
-        subject,
-        html,
-        attachments,
-      });
-
-      return res.status(200).json({ ok: true, data });
-    } catch (error) {
-      return res.status(500).json({ ok: false, error: error.message });
+      const konum = getValue("konum");
+      html += `<p><b>Şehir:</b> ${esc(sehir)}</p>
+               <p><b>Konum/Bölge:</b> ${esc(konum)}</p>
+               <p><b>Yatırım Bütçesi:</b> ${esc(butce)}</p>`;
+    } else if (isCareer) {
+      const pozisyon = getValue("pozisyon");
+      const deneyim = getValue("deneyim");
+      html += `<p><b>Başvurulan Pozisyon:</b> ${esc(pozisyon)}</p>
+               <p><b>Deneyim:</b> ${esc(deneyim)}</p>`;
     }
-  });
+
+    html += `<hr /><p><b>Mesaj:</b><br/>${nl2br(mesaj)}</p>`;
+
+    // Dosya (CV) kontrolü
+    const attachments = [];
+    const uploadedFile = files.cv ? (Array.isArray(files.cv) ? files.cv[0] : files.cv) : null;
+
+    if (uploadedFile && uploadedFile.filepath) {
+      const fileContent = fs.readFileSync(uploadedFile.filepath);
+      attachments.push({
+        filename: uploadedFile.originalFilename || "cv.pdf",
+        content: fileContent,
+      });
+    }
+
+    // E-posta gönderimi
+    const data = await resend.emails.send({
+      from: process.env.RESEND_FROM,
+      to: process.env.RESEND_TO,
+      replyTo: email ? [email] : undefined,
+      subject: subject,
+      html: html,
+      attachments: attachments,
+    });
+
+    return res.status(200).json({ ok: true, data });
+
+  } catch (error) {
+    console.error("Mail Hatası:", error);
+    return res.status(500).json({ ok: false, error: error.message });
+  }
 }
