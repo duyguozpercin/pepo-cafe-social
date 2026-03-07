@@ -12,7 +12,7 @@ function FieldError({ children }: { children?: string }) {
 }
 
 interface DynamicFormProps {
-  type: "İLETİŞİM" | "FRANCHISE" | "KARİYER";
+  type: "İLETİŞİM" | "FRANCHISE" |"career";
   title: string;
   description: string;
   children?: React.ReactNode;

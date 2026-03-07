@@ -186,7 +186,7 @@ export function Career() {
       {/* Form Section */}
       <section id="basvuru-formu" className="bg-[rgb(var(--pepo-bg-2))] px-6 py-24">
         <DynamicForm
-          type="KARİYER"
+          type="career"
           title="İş Başvurusu"
           description="Uygun bir pozisyona başvurmak için formu doldurun. İK ekibimiz sizinle iletişime geçecektir."
           onSubmit={handleCareerSubmit}
