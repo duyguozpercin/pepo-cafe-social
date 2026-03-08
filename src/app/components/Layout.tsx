@@ -11,7 +11,7 @@ export function Layout() {
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // refresh olunca doğru header state
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -22,7 +22,7 @@ export function Layout() {
 
   const navLinks = [
     { to: "/", label: "Ana Sayfa" },
-    { to: "/menu", label: "Menü" },
+    { to: "https://scan.page/p/8Am7Vr", label: "Menü" },
     { to: "/franchise", label: "Franchise" },
     { to: "/kariyer", label: "Kariyer" },
     { to: "/iletisim", label: "İletişim" },
@@ -56,23 +56,42 @@ export function Layout() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                end={link.to === "/"}
-                className={({ isActive }) =>
-                  [
-                    "no-underline text-[0.9rem] tracking-[0.15em] pb-[2px] border-b transition-colors duration-200",
-                    isActive
-                      ? "text-[rgb(var(--pepo-gold))] border-[rgb(var(--pepo-gold))]"
-                      : "text-[rgb(var(--pepo-text))] border-transparent hover:text-[rgb(var(--pepo-gold))] hover:border-[rgb(var(--pepo-gold))]",
-                  ].join(" ")
-                }
-              >
-                {link.label}
-              </NavLink>
-            ))}
+            {navLinks.map((link) => {
+              const isExternal = link.to.startsWith("http");
+              const desktopClass = "no-underline text-[0.9rem] tracking-[0.15em] pb-[2px] border-b transition-colors duration-200";
+
+              if (isExternal) {
+                return (
+                  <a
+                    key={link.to}
+                    href={link.to}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${desktopClass} text-[rgb(var(--pepo-text))] border-transparent hover:text-[rgb(var(--pepo-gold))] hover:border-[rgb(var(--pepo-gold))]`}
+                  >
+                    {link.label}
+                  </a>
+                );
+              }
+
+              return (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  end={link.to === "/"}
+                  className={({ isActive }) =>
+                    [
+                      desktopClass,
+                      isActive
+                        ? "text-[rgb(var(--pepo-gold))] border-[rgb(var(--pepo-gold))]"
+                        : "text-[rgb(var(--pepo-text))] border-transparent hover:text-[rgb(var(--pepo-gold))] hover:border-[rgb(var(--pepo-gold))]",
+                    ].join(" ")
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              );
+            })}
           </nav>
 
           {/* Mobile hamburger */}
@@ -105,23 +124,42 @@ export function Layout() {
         {/* Mobile menu */}
         {menuOpen && (
           <div className="md:hidden px-6 py-6 flex flex-col gap-5 bg-[rgb(var(--pepo-bg))] border-t border-[rgb(var(--pepo-gold))]/20">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                end={link.to === "/"}
-                className={({ isActive }) =>
-                  [
-                    "no-underline text-[1.1rem] tracking-[0.15em] transition-colors duration-200",
-                    isActive
-                      ? "text-[rgb(var(--pepo-gold))]"
-                      : "text-[rgb(var(--pepo-text))] hover:text-[rgb(var(--pepo-gold))]",
-                  ].join(" ")
-                }
-              >
-                {link.label}
-              </NavLink>
-            ))}
+            {navLinks.map((link) => {
+              const isExternal = link.to.startsWith("http");
+              const mobileClass = "no-underline text-[1.1rem] tracking-[0.15em] transition-colors duration-200";
+
+              if (isExternal) {
+                return (
+                  <a
+                    key={link.to}
+                    href={link.to}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${mobileClass} text-[rgb(var(--pepo-text))] hover:text-[rgb(var(--pepo-gold))]`}
+                  >
+                    {link.label}
+                  </a>
+                );
+              }
+
+              return (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  end={link.to === "/"}
+                  className={({ isActive }) =>
+                    [
+                      mobileClass,
+                      isActive
+                        ? "text-[rgb(var(--pepo-gold))]"
+                        : "text-[rgb(var(--pepo-text))] hover:text-[rgb(var(--pepo-gold))]",
+                    ].join(" ")
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              );
+            })}
           </div>
         )}
       </header>
@@ -160,17 +198,30 @@ export function Layout() {
                 SAYFALAR
               </h4>
 
-              <ul className="flex flex-col gap-3">
-                {navLinks.map((link) => (
-                  <li key={link.to}>
-                    <Link
-                      to={link.to}
-                      className="no-underline text-[rgba(245,240,232,0.65)] hover:text-[rgb(var(--pepo-gold))] transition-colors duration-200 text-[0.88rem] tracking-[0.05em]"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+              <ul className="flex flex-col gap-3 list-none p-0">
+                {navLinks.map((link) => {
+                  const isExternal = link.to.startsWith("http");
+                  const footerClass = "no-underline text-[rgba(245,240,232,0.65)] hover:text-[rgb(var(--pepo-gold))] transition-colors duration-200 text-[0.88rem] tracking-[0.05em]";
+
+                  return (
+                    <li key={link.to}>
+                      {isExternal ? (
+                        <a
+                          href={link.to}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={footerClass}
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link to={link.to} className={footerClass}>
+                          {link.label}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
@@ -180,7 +231,7 @@ export function Layout() {
                 İLETİŞİM
               </h4>
 
-              <ul className="flex flex-col gap-3 text-[rgba(245,240,232,0.65)] text-[0.88rem]">
+              <ul className="flex flex-col gap-3 text-[rgba(245,240,232,0.65)] text-[0.88rem] list-none p-0">
                 <li>info@pepocoffee.com</li>
                 <li>+90 (212) 000 00 00</li>
                 <li className="leading-[1.7]">
@@ -189,13 +240,18 @@ export function Layout() {
               </ul>
 
               <div className="flex gap-4 mt-5">
-                {["Instagram", "Facebook"].map((s) => (
+                {[
+                  { label: "Instagram", href: "https://www.instagram.com/pepocoffeesocial/" },
+                  { label: "Facebook", href: "https://www.facebook.com/p/Pepo-Coffee-Social-61555286991420/" }
+                ].map((s) => (
                   <a
-                    key={s}
-                    href="#"
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="no-underline text-[rgba(245,240,232,0.55)] hover:text-[rgb(var(--pepo-gold))] transition-colors duration-200 text-[0.75rem] tracking-[0.1em]"
                   >
-                    {s}
+                    {s.label}
                   </a>
                 ))}
               </div>

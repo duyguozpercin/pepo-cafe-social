@@ -1,7 +1,17 @@
 import { Resend } from "resend";
+import formidable from "formidable";
+import fs from "fs";
+
+// Next.js body parser'ı devre dışı bırakıyoruz
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// HTML Güvenliği için XSS koruması
 const esc = (v) =>
   String(v ?? "-")
     .replace(/&/g, "&amp;")
@@ -15,105 +25,88 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, error: "Method not allowed" });
   }
 
+  const form = formidable({ multiples: false });
+
+  // Formidable'ı promise yapısında kullanarak hata yönetimini iyileştiriyoruz
   try {
-    const body =
-      typeof req.body === "string" ? JSON.parse(req.body) : (req.body || {});
+    const [fields, files] = await new Promise((resolve, reject) => {
+      form.parse(req, (err, fields, files) => {
+        if (err) reject(err);
+        resolve([fields, files]);
+      });
+    });
 
-    const {
-      type, // "franchise" | "career" | "contact"
-      name,
-      email,
-      message,
+    // Formidable verileri dizi olarak döner, güvenli şekilde alıyoruz
+    const getValue = (key) => (Array.isArray(fields[key]) ? fields[key][0] : fields[key]);
 
-      // franchise fields (frontend'den ...form ile gelecek)
-      adSoyad,
-      telefon,
-      sehir,
-      konum,
-      butce,
-      deneyim,
-      mesaj,
+    // TYPE KONTROLÜ (Kritik Düzeltme: Türkçe karakter toleransı)
+    const rawType = getValue("type") || "contact";
+    const formType = rawType.toLowerCase().trim();
 
-      // career/contact gibi formlar için ekstra alanlar gelirse otomatik listeleriz
-      ...rest
-    } = body;
+    // Kariyer başvurusu için hem 'career' hem de 'kariyer/karıyer' ihtimallerini kontrol ediyoruz
+    const isCareer = ["career", "kariyer", "karıyer"].includes(formType);
+    const isFranchise = formType === "franchise";
 
-    if (!process.env.RESEND_API_KEY) throw new Error("Missing RESEND_API_KEY");
-    if (!process.env.RESEND_FROM) throw new Error("Missing RESEND_FROM");
-    if (!process.env.RESEND_TO) throw new Error("Missing RESEND_TO");
+    const subject = isFranchise
+      ? "PEPO | Franchise Başvurusu"
+      : isCareer
+      ? "PEPO | İş Başvurusu"
+      : "PEPO | İletişim Mesajı";
 
-    const formType = String(type || "contact");
+    // Ortak Alanlar
+    const name = getValue("adSoyad") || getValue("name");
+    const email = getValue("email");
+    const telefon = getValue("telefon");
+    const mesaj = getValue("mesaj") || getValue("message");
 
-    const subject =
-      formType === "franchise"
-        ? "PEPO | Franchise Başvurusu"
-        : formType === "career"
-          ? "PEPO | Kariyer Başvurusu"
-          : "PEPO | İletişim Mesajı";
+    let html = `<h3>${esc(subject)}</h3>
+                <p><b>Ad Soyad:</b> ${esc(name)}</p>
+                <p><b>Email:</b> ${esc(email)}</p>
+                <p><b>Telefon:</b> ${esc(telefon)}</p>`;
 
-    // Message normalize
-    const normalizedMessage =
-      formType === "franchise"
-        ? (mesaj ?? message ?? "")
-        : (message ?? mesaj ?? "");
-
-    if (!normalizedMessage || String(normalizedMessage).trim().length < 3) {
-      return res.status(400).json({ ok: false, error: "Message is required" });
+    // Özel Alanlar
+    if (isFranchise) {
+      const sehir = getValue("sehir");
+      const butce = getValue("butce");
+      const konum = getValue("konum");
+      html += `<p><b>Şehir:</b> ${esc(sehir)}</p>
+               <p><b>Konum/Bölge:</b> ${esc(konum)}</p>
+               <p><b>Yatırım Bütçesi:</b> ${esc(butce)}</p>`;
+    } else if (isCareer) {
+      const pozisyon = getValue("pozisyon");
+      const deneyim = getValue("deneyim");
+      html += `<p><b>Başvurulan Pozisyon:</b> ${esc(pozisyon)}</p>
+               <p><b>Deneyim:</b> ${esc(deneyim)}</p>`;
     }
 
-    let html = "";
+    html += `<hr /><p><b>Mesaj:</b><br/>${nl2br(mesaj)}</p>`;
 
-    if (formType === "franchise") {
-      html = `
-        <h3>Franchise Başvurusu</h3>
-        <p><b>Ad Soyad:</b> ${esc(adSoyad)}</p>
-        <p><b>Telefon:</b> ${esc(telefon)}</p>
-        <p><b>Email:</b> ${esc(email)}</p>
-        <p><b>Şehir:</b> ${esc(sehir)}</p>
-        <p><b>Konum/Bölge:</b> ${esc(konum)}</p>
-        <p><b>Yatırım Bütçesi:</b> ${esc(butce)}</p>
-        <p><b>İş Deneyimi:</b> ${esc(deneyim)}</p>
-        <hr />
-        <p><b>Ek Mesaj / Notlar:</b><br/>${nl2br(normalizedMessage)}</p>
-      `;
-    } else {
-      // contact / career generic template
-      // Eğer ekstra alanlar geldiyse mailde listeleyelim
-      const extra =
-        Object.keys(rest || {}).length > 0
-          ? `
-            <hr />
-            <h4>Ek Alanlar</h4>
-            <ul>
-              ${Object.entries(rest)
-                .map(([k, v]) => `<li><b>${esc(k)}:</b> ${esc(v)}</li>`)
-                .join("")}
-            </ul>
-          `
-          : "";
+    // Dosya (CV) kontrolü
+    const attachments = [];
+    const uploadedFile = files.cv ? (Array.isArray(files.cv) ? files.cv[0] : files.cv) : null;
 
-      html = `
-        <h3>${esc(subject)}</h3>
-        <p><b>Ad:</b> ${esc(name || adSoyad)}</p>
-        <p><b>Email:</b> ${esc(email)}</p>
-        <hr />
-        <p><b>Mesaj:</b><br/>${nl2br(normalizedMessage)}</p>
-        ${extra}
-      `;
+    if (uploadedFile && uploadedFile.filepath) {
+      const fileContent = fs.readFileSync(uploadedFile.filepath);
+      attachments.push({
+        filename: uploadedFile.originalFilename || "cv.pdf",
+        content: fileContent,
+      });
     }
 
+    // E-posta gönderimi
     const data = await resend.emails.send({
       from: process.env.RESEND_FROM,
       to: process.env.RESEND_TO,
       replyTo: email ? [email] : undefined,
-      subject,
-      html,
+      subject: subject,
+      html: html,
+      attachments: attachments,
     });
 
     return res.status(200).json({ ok: true, data });
-  } catch (err) {
-    return res
-      .status(500)
-      .json({ ok: false, error: err?.message || "Server error" });
+
+  } catch (error) {
+    console.error("Mail Hatası:", error);
+    return res.status(500).json({ ok: false, error: error.message });
   }
 }

@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { ImageWithFallback } from "../../components/ImageWithFallback";
 
 const heroImg =
-"/banner.jpeg"
+  "/banner.jpeg"
 export function HeroSection() {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -24,7 +24,7 @@ export function HeroSection() {
 
         <h1 className="text-[rgb(var(--pepo-gold))] text-[clamp(2.5rem,7vw,4.5rem)] leading-[1.05] mb-6 font-normal">
           PEPO Coffee & Social
-         
+
         </h1>
 
         <p className="text-[rgba(245,240,232,0.7)] text-[clamp(1rem,2vw,1.2rem)] leading-[1.8] mb-12 max-w-[560px] mx-auto">
@@ -32,12 +32,14 @@ export function HeroSection() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            to="/menu"
+          <a
+            href="https://scan.page/p/8Am7Vr"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block bg-[#C49A2A] text-[#1A0F08] hover:bg-[rgb(var(--pepo-gold-2))] transition-colors duration-200 py-[0.9rem] px-[2.5rem] text-[0.8rem] tracking-[0.2em] no-underline"
           >
             MENÜYÜ GÖR
-          </Link>
+          </a>
 
 
           <Link
