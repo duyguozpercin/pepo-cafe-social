@@ -22,10 +22,9 @@ export function HeroSection() {
           İZMİR'İN YENİ BULUŞMA NOKTASI
         </div>
 
-        <h1 className="text-[rgb(var(--pepo-text))] text-[clamp(3rem,9vw,7rem)] leading-[1.05] mb-6 font-normal">
-          PEPO
-          <br />
-          <span className="text-[rgb(var(--pepo-gold))]">Coffee & Social</span>
+        <h1 className="text-[rgb(var(--pepo-gold))] text-[clamp(2.5rem,7vw,4.5rem)] leading-[1.05] mb-6 font-normal">
+          PEPO Coffee & Social
+         
         </h1>
 
         <p className="text-[rgba(245,240,232,0.7)] text-[clamp(1rem,2vw,1.2rem)] leading-[1.8] mb-12 max-w-[560px] mx-auto">

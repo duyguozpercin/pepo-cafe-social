@@ -183,7 +183,9 @@ export function Layout() {
               <ul className="flex flex-col gap-3 text-[rgba(245,240,232,0.65)] text-[0.88rem]">
                 <li>info@pepocoffee.com</li>
                 <li>+90 (212) 000 00 00</li>
-                <li className="leading-[1.7]">İstanbul, Türkiye</li>
+                <li className="leading-[1.7]">
+                  İnönü Caddesi No:375/A, İzmir, Türkiye
+                </li>
               </ul>
 
               <div className="flex gap-4 mt-5">
@@ -202,7 +204,7 @@ export function Layout() {
 
           <div className="border-t border-[rgb(var(--pepo-gold))]/15 pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
             <p className="text-[rgba(245,240,232,0.35)] text-[0.78rem] tracking-[0.08em]">
-              © 2025 PEPO Coffee & Social. Tüm hakları saklıdır.
+              © 2026 PEPO Coffee & Social. Tüm hakları saklıdır.
             </p>
             <p className="text-[rgba(245,240,232,0.25)] text-[0.72rem] tracking-[0.05em]">
               Kahvenin ötesinde bir deneyim.
