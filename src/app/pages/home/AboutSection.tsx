@@ -23,8 +23,7 @@ export function AboutSection() {
           <ImageWithFallback
             src={thinkgobal}
             alt="Think Global"
-            // Değişiklik: Konumlandırma sınıfları (-bottom, -right) kaldırıldı.
-            // w-full max-w-[...px] ile mobil uyumlu hale getirildi.
+        
             className="absolute w-full max-w-[400px] h-auto object-contain"
           />
         </div>
