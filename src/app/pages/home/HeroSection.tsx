@@ -4,6 +4,7 @@ import { ImageWithFallback } from "../../components/ImageWithFallback";
 const heroImg =
   "/banner.jpeg"
 const logo = "/pepologo.png";
+
 export function HeroSection() {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -19,6 +20,7 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+        
         <ImageWithFallback src={logo} alt="PEPO Logo" className="mx-auto mb-6 w-[400px] h-auto" />
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
