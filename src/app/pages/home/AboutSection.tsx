@@ -14,7 +14,7 @@ export function AboutSection() {
     <section className="bg-[rgb(var(--pepo-bg))] py-28 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Left: Image */}
-<div className="relative flex items-center justify-center">
+        <div className="relative flex items-center justify-center">
           <ImageWithFallback
             src={baristaImg}
             alt="Barista"
