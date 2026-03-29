@@ -15,7 +15,7 @@ export function AboutSection() {
         {/* Left: Image */}
         <div className="relative">
           <ImageWithFallback
-            src={baristaImg}
+            src={baristaImg} 
             alt="Barista"
             className="w-full h-[520px] object-cover filter brightness-[0.85]"
           />
