@@ -13,14 +13,13 @@ export function HeroSection() {
         <ImageWithFallback
           src={heroImg}
           alt="PEPO Coffee Interior"
-          className="w-full h-full object-cover filter brightness-[0.35]"
+          className="w-full h-full object-cover filter brightness-[0.5]"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(26,15,8,0.2)_0%,rgba(26,15,8,0.55)_80%,rgba(26,15,8,1)_100%)]" />
-      </div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(26,15,8,0.1)_0%,rgba(26,15,8,0.35)_80%,rgba(26,15,8,0.85)_100%)]" />      </div>
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        
+
         <ImageWithFallback src={logo} alt="PEPO Logo" className="mx-auto mb-6 w-[400px] h-auto" />
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
