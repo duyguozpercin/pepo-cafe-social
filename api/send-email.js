@@ -50,8 +50,8 @@ export default async function handler(req, res) {
     const subject = isFranchise
       ? "PEPO | Franchise Başvurusu"
       : isCareer
-      ? "PEPO | İş Başvurusu"
-      : "PEPO | İletişim Mesajı";
+        ? "PEPO | İş Başvurusu"
+        : "PEPO | İletişim Mesajı";
 
     // Ortak Alanlar
     const name = getValue("adSoyad") || getValue("name");
@@ -92,6 +92,11 @@ export default async function handler(req, res) {
         content: fileContent,
       });
     }
+
+    // E-posta gönderimi öncesi TEST
+    console.log("TO:", process.env.RESEND_TO);
+    console.log("FROM:", process.env.RESEND_FROM);
+    console.log("API KEY VAR MI:", !!process.env.RESEND_API_KEY);
 
     // E-posta gönderimi
     const data = await resend.emails.send({
