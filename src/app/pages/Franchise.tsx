@@ -4,7 +4,7 @@ import { DynamicForm } from "../components/DynamicForm";
 const franchiseImg = "pepo-franchise.jpeg";
 
 const benefits = [
-  { title: "Güçlü Marka", desc: "Tanınan ve güvenilen PEPO markasının arkasında durun." },
+  { title: "Hızla Yükselen Marka", desc: "Büyümeye hazır olan Pepo ailesinin bir parçası olun." },
   { title: "Kapsamlı Eğitim", desc: "Operasyon, servis ve kahve eğitimlerinde tam destek." },
   { title: "Süregelen Destek", desc: "Açılıştan sonra da yanınızda olan deneyimli ekip." },
   { title: "Kanıtlanmış Model", desc: "Başarılı iş modeli ve güçlü kâr marjı." },
