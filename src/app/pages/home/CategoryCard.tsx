@@ -6,7 +6,7 @@ type CategoryCardProps = {
   desc: string;
 };
 
-export function CategoryCard({ label, img, desc }: CategoryCardProps) {
+export function CategoryCard({ label, img, }: CategoryCardProps) {
   return (
     <div className="group relative overflow-hidden cursor-default">
       <div className="overflow-hidden h-[320px]">
@@ -17,7 +17,7 @@ export function CategoryCard({ label, img, desc }: CategoryCardProps) {
         />
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-6 bg-[linear-gradient(to_top,rgba(26,15,8,0.95)_0%,transparent_100%)]">
+      {/* <div className="absolute bottom-0 left-0 right-0 p-6 bg-[linear-gradient(to_top,rgba(26,15,8,0.95)_0%,transparent_100%)]">
         <div className="text-[rgb(var(--pepo-gold))] text-[0.65rem] tracking-[0.3em] mb-[0.4rem]">
           ——
         </div>
@@ -29,7 +29,7 @@ export function CategoryCard({ label, img, desc }: CategoryCardProps) {
         <p className="text-[rgba(245,240,232,0.6)] text-[0.82rem] leading-[1.7]">
           {desc}
         </p>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -5,7 +5,7 @@ const baristaImg =
 const thinkgobal = "/thinkglobal.png";
 const stats = [
   { num: "2023", label: "Kuruluş Yılı" },
-  { num: "100+", label: "Menü Seçeneği" },
+  { num: "100+", label: "Lezzet" },
   { num: "∞", label: "Sıcak Atmosfer" },
 ];
 

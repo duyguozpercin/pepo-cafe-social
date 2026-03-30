@@ -3,8 +3,7 @@ import { ImageWithFallback } from "../components/ImageWithFallback";
 import { DynamicForm } from "../components/DynamicForm";
 
 const baristaImg =
-  "https://images.unsplash.com/photo-1770991966683-472a770d0ebf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=900";
-
+  "banner.jpeg"
 const positions = [
   {
     id: "barista",
@@ -88,18 +87,18 @@ export function Career() {
     document.getElementById("basvuru-formu")?.scrollIntoView({ behavior: "smooth" });
   };
 
- const handleCareerSubmit = async (formData: FormData) => {
-  const res = await fetch("/api/send-email", {
-    method: "POST",
-    // Not: FormData gönderirken Content-Type başlığı eklemeyin!
-    body: formData,
-  });
+  const handleCareerSubmit = async (formData: FormData) => {
+    const res = await fetch("/api/send-email", {
+      method: "POST",
+      // Not: FormData gönderirken Content-Type başlığı eklemeyin!
+      body: formData,
+    });
 
-  if (!res.ok) {
-    const errorData = await res.json();
-    throw new Error(errorData.error || "Sunucu hatası");
-  }
-};
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.error || "Sunucu hatası");
+    }
+  };
 
 
   return (
@@ -110,9 +109,9 @@ export function Career() {
           <ImageWithFallback
             src={baristaImg}
             alt="Kariyer"
-            className="h-full w-full object-cover brightness-[0.18]"
+            className="h-full w-full object-cover brightness-[0.6]"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[rgb(var(--pepo-bg))]/20 to-[rgb(var(--pepo-bg))]/95" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[rgb(var(--pepo-bg))]/10 via-[rgb(var(--pepo-bg))]/30 to-[rgb(var(--pepo-bg))]/75" />
         </div>
 
         <div className="relative mx-auto max-w-4xl text-center">

@@ -38,12 +38,9 @@ export function CategoriesSection() {
       <div className="max-w-7xl mx-auto">
         {/* Title */}
         <div className="text-center mb-16">
-          <div className="text-[rgb(var(--pepo-gold))] text-[0.72rem] tracking-[0.4em] mb-4">
-            LEZZETLER
-          </div>
 
           <h2 className="text-[rgb(var(--pepo-text))] text-[clamp(2rem,4vw,3rem)] font-normal">
-            Menümüzden Seçkiler
+            GALERİ
           </h2>
         </div>
 
