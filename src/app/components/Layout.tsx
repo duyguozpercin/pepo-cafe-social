@@ -233,7 +233,6 @@ export function Layout() {
 
               <ul className="flex flex-col gap-3 text-[rgba(245,240,232,0.65)] text-[0.88rem] list-none p-0">
                 <li>info@pepocoffee.com</li>
-                <li>+90 (212) 000 00 00</li>
                 <li className="leading-[1.7]">
                   İnönü Caddesi No:375/A, İzmir, Türkiye
                 </li>
