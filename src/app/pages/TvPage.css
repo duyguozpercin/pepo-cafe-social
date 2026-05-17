@@ -39,10 +39,10 @@
   z-index: 2;
   background: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0.48),
+    rgba(0, 0, 0, 0.52),
     rgba(0, 0, 0, 0.12),
     rgba(0, 0, 0, 0.12),
-    rgba(0, 0, 0, 0.48)
+    rgba(0, 0, 0, 0.52)
   );
 }
 
@@ -51,40 +51,41 @@
   z-index: 3;
   width: 100vw;
   height: 100vh;
-  padding: 16px;
+  padding: clamp(14px, 1.1vw, 28px);
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr 2fr;
-  gap: 14px;
+  grid-template-columns: 1.08fr 1.08fr 1.9fr 1.92fr;
+  gap: clamp(12px, 0.9vw, 24px);
+}
+
+.tv-column,
+.tv-empty-column {
+  height: 100%;
+  min-height: 0;
 }
 
 .tv-column {
-  height: 100%;
   overflow: hidden;
-  border-radius: 24px;
-}
-
-.tv-empty-column {
-  height: 100%;
+  border-radius: clamp(18px, 1.35vw, 34px);
 }
 
 .tv-menu-card,
 .tv-food-card {
   height: 100%;
   overflow: hidden;
-  padding: 15px 16px;
-  border-radius: 24px;
+  padding: clamp(14px, 1.05vw, 26px);
+  border-radius: clamp(18px, 1.35vw, 34px);
   backdrop-filter: blur(16px);
-  box-shadow: 0 12px 45px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .tv-menu-card {
-  background: rgba(244, 239, 230, 0.9);
+  background: rgba(244, 239, 230, 0.91);
   color: #160c06;
 }
 
 .tv-food-card {
-  background: rgba(35, 21, 13, 0.86);
+  background: rgba(35, 21, 13, 0.88);
   color: #f4efe6;
   display: flex;
   flex-direction: column;
@@ -92,75 +93,79 @@
 
 .tv-food-content {
   flex: 1;
+  min-height: 0;
   overflow: hidden;
 }
 
 .tv-section-title {
-  margin: 8px 0 4px;
+  margin: clamp(8px, 0.48vw, 14px) 0 clamp(4px, 0.28vw, 8px);
   color: #b98b18;
-  font-size: 11px;
+  font-size: clamp(11px, 0.62vw, 18px);
   font-weight: 900;
-  letter-spacing: 1.7px;
+  letter-spacing: clamp(1.5px, 0.12vw, 3px);
   text-transform: uppercase;
   border-bottom: 1px solid rgba(185, 139, 24, 0.45);
-  padding-bottom: 3px;
+  padding-bottom: clamp(3px, 0.22vw, 7px);
 }
 
 .tv-menu-items {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: clamp(2px, 0.13vw, 5px);
 }
 
 .tv-menu-item {
-  display: flex;
-  justify-content: space-between;
-  gap: 7px;
-  padding-bottom: 2px;
-  border-bottom: 1px dashed rgba(22, 12, 6, 0.14);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: clamp(6px, 0.45vw, 14px);
+  padding-bottom: clamp(2px, 0.16vw, 5px);
+  border-bottom: 1px dashed rgba(22, 12, 6, 0.15);
 }
 
 .tv-food-card .tv-menu-item {
-  border-bottom-color: rgba(244, 239, 230, 0.14);
+  border-bottom-color: rgba(244, 239, 230, 0.16);
 }
 
 .tv-item-name {
-  font-size: 9.2px;
+  min-width: 0;
+  font-size: clamp(9px, 0.54vw, 16px);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.06;
   text-transform: uppercase;
 }
 
 .tv-item-note {
   display: block;
-  margin-top: 1px;
-  font-size: 7px;
+  margin-top: clamp(1px, 0.08vw, 3px);
+  font-size: clamp(6.8px, 0.42vw, 12px);
   font-weight: 500;
-  opacity: 0.65;
+  opacity: 0.68;
   text-transform: none;
-  line-height: 1.05;
+  line-height: 1.08;
 }
 
 .tv-item-price {
   color: #b98b18;
-  font-size: 9.5px;
+  font-size: clamp(9px, 0.54vw, 16px);
   font-weight: 900;
   white-space: nowrap;
   text-align: right;
+  line-height: 1.05;
 }
 
 .tv-footer-brand {
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid rgba(185, 139, 24, 0.22);
+  margin-top: clamp(8px, 0.55vw, 16px);
+  padding-top: clamp(8px, 0.55vw, 16px);
+  border-top: 1px solid rgba(185, 139, 24, 0.24);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: clamp(10px, 0.8vw, 20px);
 }
 
 .tv-footer-logo {
-  max-height: 86px;
+  max-height: clamp(70px, 5vw, 130px);
   width: auto;
   object-fit: contain;
 }
@@ -168,24 +173,65 @@
 .tv-footer-links {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: clamp(4px, 0.32vw, 10px);
   align-items: flex-end;
 }
 
 .tv-footer-item {
   display: flex;
   align-items: center;
-  gap: 7px;
-  font-size: 10px;
+  gap: clamp(6px, 0.45vw, 12px);
+  font-size: clamp(9px, 0.58vw, 16px);
   letter-spacing: 0.35px;
-  color: rgba(244, 239, 230, 0.82);
+  color: rgba(244, 239, 230, 0.84);
   white-space: nowrap;
 }
 
 .tv-footer-dot {
-  width: 5px;
-  height: 5px;
+  width: clamp(5px, 0.35vw, 9px);
+  height: clamp(5px, 0.35vw, 9px);
   border-radius: 999px;
   background: #b98b18;
   flex-shrink: 0;
+}
+
+@media (min-width: 2500px) {
+  .tv-grid {
+    grid-template-columns: 1.05fr 1.05fr 2fr 1.95fr;
+  }
+
+  .tv-menu-card,
+  .tv-food-card {
+    padding: 26px 28px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .tv-grid {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .tv-menu-card,
+  .tv-food-card {
+    padding: 12px;
+  }
+
+  .tv-section-title {
+    font-size: 10px;
+    margin: 6px 0 3px;
+  }
+
+  .tv-item-name,
+  .tv-item-price {
+    font-size: 8.4px;
+  }
+
+  .tv-item-note {
+    font-size: 6.4px;
+  }
+
+  .tv-footer-logo {
+    max-height: 62px;
+  }
 }
