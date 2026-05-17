@@ -15,7 +15,7 @@
   box-sizing: border-box;
 }
 
-.tv-screen {
+.tv-page .tv-screen {
   width: 100vw;
   height: 56.25vw;
   max-height: 100vh;
@@ -24,7 +24,7 @@
   padding: 16px;
 }
 
-.grid {
+.tv-page .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 2fr 2fr;
   gap: 14px;
@@ -32,38 +32,38 @@
   height: 100%;
 }
 
-.column {
+.tv-page .column {
   height: 100%;
   overflow: hidden;
   border-radius: 22px;
 }
 
-.menu-card,
-.food-card {
+.tv-page .menu-card,
+.tv-page .food-card {
   height: 100%;
   padding: 15px 16px;
   border: 1px solid rgba(194, 145, 28, 0.45);
   overflow: hidden;
 }
 
-.menu-card {
+.tv-page .menu-card {
   background: #f4efe6;
   color: #160c06;
 }
 
-.food-card {
+.tv-page .food-card {
   background: #23150d;
   color: #f4efe6;
   display: flex;
   flex-direction: column;
 }
 
-.food-content {
+.tv-page .food-content {
   flex: 1;
   overflow: hidden;
 }
 
-.menu-title {
+.tv-page .menu-title {
   margin: 0 0 7px;
   color: #b98b18;
   font-size: 15px;
@@ -72,7 +72,7 @@
   text-transform: uppercase;
 }
 
-.section-title {
+.tv-page .section-title {
   margin: 8px 0 4px;
   color: #b98b18;
   font-size: 11px;
@@ -84,13 +84,13 @@
   padding-bottom: 3px;
 }
 
-.menu-items {
+.tv-page .menu-items {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.menu-item {
+.tv-page .menu-item {
   display: flex;
   justify-content: space-between;
   gap: 7px;
@@ -98,11 +98,11 @@
   border-bottom: 1px dashed rgba(22, 12, 6, 0.16);
 }
 
-.food-card .menu-item {
+.tv-page .food-card .menu-item {
   border-bottom-color: rgba(244, 239, 230, 0.15);
 }
 
-.item-name {
+.tv-page .item-name {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 9.3px;
   font-weight: 800;
@@ -110,7 +110,7 @@
   text-transform: uppercase;
 }
 
-.item-note {
+.tv-page .item-note {
   display: block;
   margin-top: 1px;
   font-size: 7.2px;
@@ -120,7 +120,7 @@
   line-height: 1.05;
 }
 
-.item-price {
+.tv-page .item-price {
   font-family: Arial, Helvetica, sans-serif;
   color: #b98b18;
   font-size: 9.7px;
@@ -129,7 +129,7 @@
   text-align: right;
 }
 
-.youtube-card {
+.tv-page .youtube-card {
   position: relative;
   height: 100%;
   background: #000;
@@ -137,13 +137,15 @@
   overflow: hidden;
 }
 
-.youtube-card iframe {
+.tv-page .youtube-card iframe,
+.tv-page .youtube-card video {
   width: 100%;
   height: 100%;
   border: 0;
+  object-fit: cover;
 }
 
-.video-label {
+.tv-page .video-label {
   position: absolute;
   left: 14px;
   bottom: 14px;
@@ -155,7 +157,7 @@
   font-size: 11px;
 }
 
-.footer-brand {
+.tv-page .footer-brand {
   margin-top: 8px;
   padding-top: 8px;
   border-top: 1px solid rgba(185, 139, 24, 0.25);
@@ -165,21 +167,21 @@
   gap: 12px;
 }
 
-.footer-logo {
+.tv-page .footer-logo {
   max-height: 86px;
   width: auto;
   object-fit: contain;
   opacity: 0.95;
 }
 
-.footer-links {
+.tv-page .footer-links {
   display: flex;
   flex-direction: column;
   gap: 5px;
   align-items: flex-end;
 }
 
-.footer-item {
+.tv-page .footer-item {
   display: flex;
   align-items: center;
   gap: 7px;
@@ -190,7 +192,7 @@
   white-space: nowrap;
 }
 
-.footer-dot {
+.tv-page .footer-dot {
   width: 5px;
   height: 5px;
   border-radius: 999px;
