@@ -39,10 +39,10 @@
   z-index: 2;
   background: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0.52),
+    rgba(0, 0, 0, 0.54),
     rgba(0, 0, 0, 0.12),
     rgba(0, 0, 0, 0.12),
-    rgba(0, 0, 0, 0.52)
+    rgba(0, 0, 0, 0.54)
   );
 }
 
@@ -51,10 +51,10 @@
   z-index: 3;
   width: 100vw;
   height: 100vh;
-  padding: clamp(14px, 1.1vw, 28px);
+  padding: clamp(10px, 0.75vw, 18px);
   display: grid;
-  grid-template-columns: 1.08fr 1.08fr 1.9fr 1.92fr;
-  gap: clamp(12px, 0.9vw, 24px);
+  grid-template-columns: 1.05fr 1.05fr 1.9fr 2fr;
+  gap: clamp(8px, 0.65vw, 16px);
 }
 
 .tv-column,
@@ -65,15 +65,15 @@
 
 .tv-column {
   overflow: hidden;
-  border-radius: clamp(18px, 1.35vw, 34px);
+  border-radius: clamp(16px, 1vw, 26px);
 }
 
 .tv-menu-card,
 .tv-food-card {
   height: 100%;
   overflow: hidden;
-  padding: clamp(14px, 1.05vw, 26px);
-  border-radius: clamp(18px, 1.35vw, 34px);
+  padding: clamp(9px, 0.68vw, 16px);
+  border-radius: clamp(16px, 1vw, 26px);
   backdrop-filter: blur(16px);
   box-shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -98,28 +98,29 @@
 }
 
 .tv-section-title {
-  margin: clamp(8px, 0.48vw, 14px) 0 clamp(4px, 0.28vw, 8px);
+  margin: clamp(4px, 0.28vw, 8px) 0 clamp(2px, 0.14vw, 4px);
   color: #b98b18;
-  font-size: clamp(11px, 0.62vw, 18px);
+  font-size: clamp(8.5px, 0.43vw, 13px);
   font-weight: 900;
-  letter-spacing: clamp(1.5px, 0.12vw, 3px);
+  letter-spacing: clamp(1px, 0.09vw, 2px);
   text-transform: uppercase;
   border-bottom: 1px solid rgba(185, 139, 24, 0.45);
-  padding-bottom: clamp(3px, 0.22vw, 7px);
+  padding-bottom: clamp(1px, 0.1vw, 3px);
+  line-height: 1;
 }
 
 .tv-menu-items {
   display: flex;
   flex-direction: column;
-  gap: clamp(2px, 0.13vw, 5px);
+  gap: 1px;
 }
 
 .tv-menu-item {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) max-content;
   align-items: start;
-  gap: clamp(6px, 0.45vw, 14px);
-  padding-bottom: clamp(2px, 0.16vw, 5px);
+  gap: clamp(4px, 0.32vw, 10px);
+  padding-bottom: 1px;
   border-bottom: 1px dashed rgba(22, 12, 6, 0.15);
 }
 
@@ -129,43 +130,44 @@
 
 .tv-item-name {
   min-width: 0;
-  font-size: clamp(9px, 0.54vw, 16px);
+  font-size: clamp(7.6px, 0.41vw, 12.5px);
   font-weight: 800;
-  line-height: 1.06;
+  line-height: 0.98;
   text-transform: uppercase;
 }
 
 .tv-item-note {
   display: block;
-  margin-top: clamp(1px, 0.08vw, 3px);
-  font-size: clamp(6.8px, 0.42vw, 12px);
+  margin-top: 1px;
+  font-size: clamp(5.8px, 0.31vw, 9.5px);
   font-weight: 500;
   opacity: 0.68;
   text-transform: none;
-  line-height: 1.08;
+  line-height: 0.98;
 }
 
 .tv-item-price {
+  min-width: max-content;
   color: #b98b18;
-  font-size: clamp(9px, 0.54vw, 16px);
+  font-size: clamp(7.6px, 0.41vw, 12.5px);
   font-weight: 900;
   white-space: nowrap;
   text-align: right;
-  line-height: 1.05;
+  line-height: 0.98;
 }
 
 .tv-footer-brand {
-  margin-top: clamp(8px, 0.55vw, 16px);
-  padding-top: clamp(8px, 0.55vw, 16px);
+  margin-top: clamp(5px, 0.35vw, 10px);
+  padding-top: clamp(5px, 0.35vw, 10px);
   border-top: 1px solid rgba(185, 139, 24, 0.24);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(10px, 0.8vw, 20px);
+  gap: clamp(8px, 0.55vw, 16px);
 }
 
 .tv-footer-logo {
-  max-height: clamp(70px, 5vw, 130px);
+  max-height: clamp(48px, 3.8vw, 92px);
   width: auto;
   object-fit: contain;
 }
@@ -173,23 +175,23 @@
 .tv-footer-links {
   display: flex;
   flex-direction: column;
-  gap: clamp(4px, 0.32vw, 10px);
+  gap: clamp(3px, 0.22vw, 7px);
   align-items: flex-end;
 }
 
 .tv-footer-item {
   display: flex;
   align-items: center;
-  gap: clamp(6px, 0.45vw, 12px);
-  font-size: clamp(9px, 0.58vw, 16px);
-  letter-spacing: 0.35px;
+  gap: clamp(5px, 0.32vw, 10px);
+  font-size: clamp(7.8px, 0.42vw, 12.5px);
+  letter-spacing: 0.25px;
   color: rgba(244, 239, 230, 0.84);
   white-space: nowrap;
 }
 
 .tv-footer-dot {
-  width: clamp(5px, 0.35vw, 9px);
-  height: clamp(5px, 0.35vw, 9px);
+  width: clamp(4px, 0.25vw, 7px);
+  height: clamp(4px, 0.25vw, 7px);
   border-radius: 999px;
   background: #b98b18;
   flex-shrink: 0;
@@ -197,41 +199,60 @@
 
 @media (min-width: 2500px) {
   .tv-grid {
-    grid-template-columns: 1.05fr 1.05fr 2fr 1.95fr;
+    padding: 22px;
+    gap: 18px;
+    grid-template-columns: 1.05fr 1.05fr 1.95fr 2fr;
   }
 
   .tv-menu-card,
   .tv-food-card {
-    padding: 26px 28px;
+    padding: 18px 20px;
+  }
+
+  .tv-item-name,
+  .tv-item-price {
+    font-size: 13px;
+  }
+
+  .tv-item-note {
+    font-size: 10px;
+  }
+
+  .tv-section-title {
+    font-size: 13.5px;
   }
 }
 
 @media (max-width: 1366px) {
   .tv-grid {
-    padding: 12px;
-    gap: 10px;
+    padding: 8px;
+    gap: 8px;
   }
 
   .tv-menu-card,
   .tv-food-card {
-    padding: 12px;
+    padding: 8px;
   }
 
   .tv-section-title {
-    font-size: 10px;
-    margin: 6px 0 3px;
+    font-size: 7.8px;
+    margin: 3px 0 2px;
   }
 
   .tv-item-name,
   .tv-item-price {
-    font-size: 8.4px;
+    font-size: 6.8px;
   }
 
   .tv-item-note {
-    font-size: 6.4px;
+    font-size: 5.4px;
   }
 
   .tv-footer-logo {
-    max-height: 62px;
+    max-height: 42px;
+  }
+
+  .tv-footer-item {
+    font-size: 7px;
   }
 }
