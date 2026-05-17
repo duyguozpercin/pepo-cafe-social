@@ -100,7 +100,7 @@
 .tv-section-title {
   margin: clamp(4px, 0.28vw, 8px) 0 clamp(2px, 0.14vw, 4px);
   color: #b98b18;
-  font-size: clamp(8.5px, 0.43vw, 13px);
+  font-size: clamp(7.8px, 0.39vw, 11.5px);
   font-weight: 900;
   letter-spacing: clamp(1px, 0.09vw, 2px);
   text-transform: uppercase;
@@ -130,7 +130,7 @@
 
 .tv-item-name {
   min-width: 0;
-  font-size: clamp(7.6px, 0.41vw, 12.5px);
+  font-size: clamp(7px, 0.37vw, 11px);
   font-weight: 800;
   line-height: 0.98;
   text-transform: uppercase;
@@ -139,7 +139,7 @@
 .tv-item-note {
   display: block;
   margin-top: 1px;
-  font-size: clamp(5.8px, 0.31vw, 9.5px);
+  font-size: clamp(5.2px, 0.27vw, 8px);
   font-weight: 500;
   opacity: 0.68;
   text-transform: none;
@@ -149,7 +149,7 @@
 .tv-item-price {
   min-width: max-content;
   color: #b98b18;
-  font-size: clamp(7.6px, 0.41vw, 12.5px);
+  font-size: clamp(7px, 0.37vw, 11px);
   font-weight: 900;
   white-space: nowrap;
   text-align: right;
