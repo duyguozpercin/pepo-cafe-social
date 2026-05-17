@@ -8,13 +8,13 @@ type MenuItemProps = {
 
 function MenuItem({ name, note, price }: MenuItemProps) {
   return (
-    <div className="menu-item">
-      <span className="item-name">
+    <div className="tv-menu-item">
+      <span className="tv-item-name">
         {name}
-        {note && <span className="item-note">{note}</span>}
+        {note && <span className="tv-item-note">{note}</span>}
       </span>
 
-      <span className="item-price">{price}</span>
+      <span className="tv-item-price">{price}</span>
     </div>
   );
 }
@@ -22,423 +22,432 @@ function MenuItem({ name, note, price }: MenuItemProps) {
 export function TvPage() {
   return (
     <main className="tv-page">
-      <div className="tv-screen">
-        <div className="grid">
-          {/* COLUMN 1 */}
+      {/* VIDEO BACKGROUND */}
 
-          <div className="column">
-            <div className="menu-card">
-              <h2 className="menu-title">İçecekler</h2>
+      <div className="tv-video-bg">
+        <iframe
+          id="youtubePlayer"
+          src="https://www.youtube.com/embed/videoseries?list=PL_uLYGDZi5I4QSNXt47MvNJzHPc8wRFWX&autoplay=1&mute=1&controls=0&loop=1&rel=0&modestbranding=1&playsinline=1"
+          title="PEPO TV Background Video"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
 
-              <div className="section-title">Espresso Bar</div>
+      {/* DARK OVERLAY */}
 
-              <div className="menu-items">
-                <MenuItem
-                  name="Espresso"
-                  note="Single"
-                  price="110,00 TL"
-                />
+      <div className="tv-overlay" />
 
-                <MenuItem
-                  name="Espresso"
-                  note="Double"
-                  price="150,00 TL"
-                />
+      {/* CONTENT */}
 
-                <MenuItem
-                  name="Americano"
-                  note="Hot / Cold"
-                  price="170,00 TL / 180,00 TL"
-                />
+      <div className="tv-grid">
+        {/* LEFT COLUMN */}
 
-                <MenuItem
-                  name="Latte"
-                  note="Hot / Cold"
-                  price="195,00 TL / 205,00 TL"
-                />
+        <div className="tv-column">
+          <div className="tv-menu-card">
+            <div className="tv-section-title">Espresso Bar</div>
 
-                <MenuItem
-                  name="Flat White"
-                  note="Hot / Cold"
-                  price="200,00 TL / 210,00 TL"
-                />
-
-                <MenuItem name="Cortado" price="190,00 TL" />
-
-                <MenuItem name="Cappucino" price="195,00 TL" />
-
-                <MenuItem
-                  name="Espresso Macchiato"
-                  price="150,00 TL"
-                />
-
-                <MenuItem
-                  name="Caramel Macchiato"
-                  note="Hot / Cold"
-                  price="230,00 TL / 240,00 TL"
-                />
-
-                <MenuItem
-                  name="White Mocha"
-                  note="Hot / Cold"
-                  price="235,00 TL / 245,00 TL"
-                />
-
-                <MenuItem
-                  name="Mocha"
-                  note="Hot / Cold"
-                  price="235,00 TL / 245,00 TL"
-                />
-              </div>
-
-              <div className="section-title">Special Brewed</div>
-
-              <div className="menu-items">
-                <MenuItem
-                  name="Filter Coffee"
-                  note="Hot / Cold"
-                  price="165,00 TL / 175,00 TL"
-                />
-
-                <MenuItem
-                  name="Filter Coffee with Milk"
-                  note="Hot / Cold"
-                  price="170,00 TL / 180,00 TL"
-                />
-
-                <MenuItem
-                  name="Cold Brew"
-                  price="210,00 TL"
-                />
-
-                <MenuItem
-                  name="Chemex"
-                  price="245,00 TL"
-                />
-
-                <MenuItem
-                  name="V60"
-                  price="245,00 TL"
-                />
-              </div>
-
-              <div className="section-title">Extras</div>
-
-              <div className="menu-items">
-                <MenuItem
-                  name="Shot"
-                  price="50,00 TL"
-                />
-
-                <MenuItem
-                  name="Vegan Süt"
-                  note="Badem, Yulaf"
-                  price="60,00 TL"
-                />
-
-                <MenuItem
-                  name="Syrup"
-                  price="60,00 TL"
-                />
-              </div>
-
-              <div className="section-title">Matcha Bar</div>
-
-              <div className="menu-items">
-                <MenuItem
-                  name="Matcha Latte"
-                  note="Hot / Cold"
-                  price="250,00 TL / 260,00 TL"
-                />
-
-                <MenuItem
-                  name="Strawberry Matcha"
-                  note="Hot / Cold"
-                  price="265,00 TL / 275,00 TL"
-                />
-
-                <MenuItem
-                  name="Coconut Matcha"
-                  note="Hot / Cold"
-                  price="265,00 TL / 275,00 TL"
-                />
-
-                <MenuItem
-                  name="Berry Matcha"
-                  note="Not Sugar"
-                  price="265,00 TL / 275,00 TL"
-                />
-
-                <MenuItem
-                  name="Mojito Matcha"
-                  note="Not Sugar"
-                  price="265,00 TL / 275,00 TL"
-                />
-
-                <MenuItem
-                  name="Mango Matcha"
-                  note="Not Sugar"
-                  price="265,00 TL / 275,00 TL"
-                />
-              </div>
+            <div className="tv-menu-items">
+              <MenuItem name="Espresso" note="Single" price="110,00 TL" />
+              <MenuItem name="Espresso" note="Double" price="150,00 TL" />
+              <MenuItem
+                name="Americano"
+                note="Hot / Cold"
+                price="170,00 TL / 180,00 TL"
+              />
+              <MenuItem
+                name="Latte"
+                note="Hot / Cold"
+                price="195,00 TL / 205,00 TL"
+              />
+              <MenuItem
+                name="Flat White"
+                note="Hot / Cold"
+                price="200,00 TL / 210,00 TL"
+              />
+              <MenuItem name="Cortado" price="190,00 TL" />
+              <MenuItem name="Cappucino" price="195,00 TL" />
+              <MenuItem
+                name="Espresso Macchiato"
+                price="150,00 TL"
+              />
+              <MenuItem
+                name="Caramel Macchiato"
+                note="Hot / Cold"
+                price="230,00 TL / 240,00 TL"
+              />
+              <MenuItem
+                name="White Mocha"
+                note="Hot / Cold"
+                price="235,00 TL / 245,00 TL"
+              />
+              <MenuItem
+                name="Mocha"
+                note="Hot / Cold"
+                price="235,00 TL / 245,00 TL"
+              />
             </div>
-          </div>
 
-          {/* COLUMN 2 */}
+            <div className="tv-section-title">Special Brewed</div>
 
-          <div className="column">
-            <div className="menu-card">
-              <h2 className="menu-title">İçecekler</h2>
-
-              <div className="section-title">Sıcak İçecekler</div>
-
-              <div className="menu-items">
-                <MenuItem
-                  name="Çay"
-                  note="Küçük / Büyük"
-                  price="80,00 TL / 95,00 TL"
-                />
-
-                <MenuItem
-                  name="Türk Kahvesi"
-                  note="Single / Double"
-                  price="125,00 TL / 145,00 TL"
-                />
-
-                <MenuItem
-                  name="Sıcak Çikolata"
-                  price="235,00 TL"
-                />
-
-                <MenuItem
-                  name="Salep"
-                  price="235,00 TL"
-                />
-
-                <MenuItem
-                  name="Chai Tea Latte"
-                  price="235,00 TL"
-                />
-              </div>
-
-              <div className="section-title">Latte Art</div>
-
-              <div className="menu-items">
-                <MenuItem
-                  name="Caramel Latte"
-                  note="Hot / Cold"
-                  price="225,00 TL / 235,00 TL"
-                />
-
-                <MenuItem
-                  name="Pistachio Kiss"
-                  price="265,00 TL"
-                />
-
-                <MenuItem
-                  name="Toffeenut Latte"
-                  note="Hot / Cold"
-                  price="225,00 TL / 235,00 TL"
-                />
-
-                <MenuItem
-                  name="Salted Caramel Latte"
-                  note="Hot / Cold"
-                  price="225,00 TL / 235,00 TL"
-                />
-
-                <MenuItem
-                  name="Madagascar"
-                  note="Hot / Cold"
-                  price="225,00 TL / 235,00 TL"
-                />
-
-                <MenuItem
-                  name="Biscuit Latte"
-                  note="Hot / Cold"
-                  price="225,00 TL / 235,00 TL"
-                />
-
-                <MenuItem
-                  name="Levander Latte"
-                  note="Hot / Cold"
-                  price="225,00 TL / 235,00 TL"
-                />
-
-                <MenuItem
-                  name="Irish Latte"
-                  note="Hot / Cold"
-                  price="225,00 TL / 235,00 TL"
-                />
-
-                <MenuItem
-                  name="Pumpkin Spice Latte"
-                  note="Hot / Cold"
-                  price="225,00 TL / 235,00 TL"
-                />
-              </div>
-
-              <div className="section-title">Fresh Drinks</div>
-
-              <div className="menu-items">
-                <MenuItem
-                  name="Kuzu Kulağı"
-                  price="240,00 TL"
-                />
-
-                <MenuItem
-                  name="Cool Lime"
-                  price="240,00 TL"
-                />
-
-                <MenuItem
-                  name="Berry Hibiscus"
-                  price="240,00 TL"
-                />
-
-                <MenuItem
-                  name="Sakura White Peach"
-                  price="240,00 TL"
-                />
-
-                <MenuItem
-                  name="Orange Mango"
-                  price="240,00 TL"
-                />
-
-                <MenuItem
-                  name="Mango Dragon"
-                  price="240,00 TL"
-                />
-
-                <MenuItem
-                  name="Strawberry Acai"
-                  price="240,00 TL"
-                />
-
-                <MenuItem
-                  name="Limonata"
-                  price="210,00 TL"
-                />
-
-                <MenuItem
-                  name="Churchill"
-                  price="165,00 TL"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* VIDEO */}
-
-          <div className="column">
-            <div className="youtube-card">
-              <iframe
-                src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=1&controls=0&loop=1&playlist=jfKfPfyJRdk"
-                title="PEPO TV"
-                allow="autoplay"
-                allowFullScreen
+            <div className="tv-menu-items">
+              <MenuItem
+                name="Filter Coffee"
+                note="Hot / Cold"
+                price="165,00 TL / 175,00 TL"
               />
 
-              <div className="video-label">
-                PEPO Coffee & Social
-              </div>
+              <MenuItem
+                name="Filter Coffee with Milk"
+                note="Hot / Cold"
+                price="170,00 TL / 180,00 TL"
+              />
+
+              <MenuItem
+                name="Cold Brew"
+                price="210,00 TL"
+              />
+
+              <MenuItem
+                name="Chemex"
+                price="245,00 TL"
+              />
+
+              <MenuItem
+                name="V60"
+                price="245,00 TL"
+              />
+            </div>
+
+            <div className="tv-section-title">Extras</div>
+
+            <div className="tv-menu-items">
+              <MenuItem name="Shot" price="50,00 TL" />
+
+              <MenuItem
+                name="Vegan Süt"
+                note="Badem, Yulaf"
+                price="60,00 TL"
+              />
+
+              <MenuItem
+                name="Syrup"
+                price="60,00 TL"
+              />
+            </div>
+
+            <div className="tv-section-title">
+              Sıcak İçecekler
+            </div>
+
+            <div className="tv-menu-items">
+              <MenuItem
+                name="Çay"
+                note="Küçük / Büyük"
+                price="80,00 TL / 95,00 TL"
+              />
+
+              <MenuItem
+                name="Türk Kahvesi"
+                note="Single / Double"
+                price="125,00 TL / 145,00 TL"
+              />
+
+              <MenuItem
+                name="Sıcak Çikolata"
+                price="235,00 TL"
+              />
+
+              <MenuItem
+                name="Salep"
+                price="235,00 TL"
+              />
+
+              <MenuItem
+                name="Chai Tea Latte"
+                price="235,00 TL"
+              />
             </div>
           </div>
+        </div>
 
-          {/* FOOD */}
+        {/* CENTER LEFT */}
 
-          <div className="column">
-            <div className="food-card">
-              <div className="food-content">
-                <h2 className="menu-title">Yiyecekler</h2>
+        <div className="tv-column">
+          <div className="tv-menu-card">
+            <div className="tv-section-title">Matcha Bar</div>
 
-                <div className="section-title">Desert</div>
+            <div className="tv-menu-items">
+              <MenuItem
+                name="Matcha Latte"
+                note="Hot / Cold"
+                price="250,00 TL / 260,00 TL"
+              />
 
-                <div className="menu-items">
-                  <MenuItem
-                    name="Kruvasan"
-                    note="Orman Meyveli, Çilek-muz, Bademli, Antep fıstıklı, Lotuslu"
-                    price="385,00 TL"
-                  />
+              <MenuItem
+                name="Strawberry Matcha"
+                note="Hot / Cold"
+                price="265,00 TL / 275,00 TL"
+              />
 
-                  <MenuItem
-                    name="Roll Kruvasan"
-                    note="Orman Meyveli, Çilek-muz, Bademli, Antep fıstıklı, Lotuslu"
-                    price="345,00 TL"
-                  />
+              <MenuItem
+                name="Coconut Matcha"
+                note="Hot / Cold"
+                price="265,00 TL / 275,00 TL"
+              />
 
-                  <MenuItem
-                    name="Marry Cake"
-                    price="385,00 TL"
-                  />
+              <MenuItem
+                name="Berry Matcha"
+                note="Not Sugar"
+                price="265,00 TL / 275,00 TL"
+              />
 
-                  <MenuItem
-                    name="Matilda"
-                    price="385,00 TL"
-                  />
+              <MenuItem
+                name="Mojito Matcha"
+                note="Not Sugar"
+                price="265,00 TL / 275,00 TL"
+              />
 
-                  <MenuItem
-                    name="Victoria Bowl"
-                    price="415,00 TL"
-                  />
+              <MenuItem
+                name="Mango Matcha"
+                note="Not Sugar"
+                price="265,00 TL / 275,00 TL"
+              />
+            </div>
 
-                  <MenuItem
-                    name="Baby Bowl"
-                    price="295,00 TL"
-                  />
+            <div className="tv-section-title">Latte Art</div>
 
-                  <MenuItem
-                    name="San Sebastian"
-                    price="260,00 TL"
-                  />
-                </div>
+            <div className="tv-menu-items">
+              <MenuItem
+                name="Caramel Latte"
+                note="Hot / Cold"
+                price="225,00 TL / 235,00 TL"
+              />
 
-                <div className="section-title">Snack Bar</div>
+              <MenuItem
+                name="Pistachio Kiss"
+                price="265,00 TL"
+              />
 
-                <div className="menu-items">
-                  <MenuItem
-                    name="Kruvasan Sandwich"
-                    note="Hindi Füme, Roastbeef"
-                    price="315,00 TL"
-                  />
+              <MenuItem
+                name="Toffeenut Latte"
+                note="Hot / Cold"
+                price="225,00 TL / 235,00 TL"
+              />
 
-                  <MenuItem
-                    name="Ciabatta Sandwich"
-                    note="Hindi Füme, Roastbeef"
-                    price="315,00 TL"
-                  />
+              <MenuItem
+                name="Salted Caramel Latte"
+                note="Hot / Cold"
+                price="225,00 TL / 235,00 TL"
+              />
 
-                  <MenuItem
-                    name="Focaccia Sandwich"
-                    note="Hindi Füme, Roastbeef"
-                    price="315,00 TL"
-                  />
-                </div>
-              </div>
+              <MenuItem
+                name="Madagascar"
+                note="Hot / Cold"
+                price="225,00 TL / 235,00 TL"
+              />
 
-              <div className="footer-brand">
-                <img
-                  src="https://pepocoffee.com/pepologo.png"
-                  alt="PEPO Coffee & Social"
-                  className="footer-logo"
+              <MenuItem
+                name="Biscuit Latte"
+                note="Hot / Cold"
+                price="225,00 TL / 235,00 TL"
+              />
+
+              <MenuItem
+                name="Levander Latte"
+                note="Hot / Cold"
+                price="225,00 TL / 235,00 TL"
+              />
+
+              <MenuItem
+                name="Irish Latte"
+                note="Hot / Cold"
+                price="225,00 TL / 235,00 TL"
+              />
+
+              <MenuItem
+                name="Pumpkin Spice Latte"
+                note="Hot / Cold"
+                price="225,00 TL / 235,00 TL"
+              />
+            </div>
+
+            <div className="tv-section-title">Fresh Drinks</div>
+
+            <div className="tv-menu-items">
+              <MenuItem name="Kuzu Kulağı" price="240,00 TL" />
+              <MenuItem name="Cool Lime" price="240,00 TL" />
+              <MenuItem name="Berry Hibiscus" price="240,00 TL" />
+              <MenuItem
+                name="Sakura White Peach"
+                price="240,00 TL"
+              />
+              <MenuItem name="Orange Mango" price="240,00 TL" />
+              <MenuItem name="Mango Dragon" price="240,00 TL" />
+              <MenuItem
+                name="Strawberry Acai"
+                price="240,00 TL"
+              />
+              <MenuItem name="Limonata" price="210,00 TL" />
+              <MenuItem name="Churchill" price="165,00 TL" />
+            </div>
+          </div>
+        </div>
+
+        {/* EMPTY CENTER */}
+
+        <div className="tv-empty-column" />
+
+        {/* RIGHT COLUMN */}
+
+        <div className="tv-column">
+          <div className="tv-food-card">
+            <div className="tv-food-content">
+              <div className="tv-section-title">Desert</div>
+
+              <div className="tv-menu-items">
+                <MenuItem
+                  name="Kruvasan"
+                  note="Orman Meyveli, Çilek-muz, Bademli, Antep fıstıklı, Lotuslu"
+                  price="385,00 TL"
                 />
 
-                <div className="footer-links">
-                  <div className="footer-item">
-                    <span className="footer-dot"></span>
-                    <span>@pepocoffeesocial</span>
-                  </div>
+                <MenuItem
+                  name="Roll Kruvasan"
+                  note="Orman Meyveli, Çilek-muz, Bademli, Antep fıstıklı, Lotuslu"
+                  price="345,00 TL"
+                />
 
-                  <div className="footer-item">
-                    <span className="footer-dot"></span>
-                    <span>www.pepocoffee.com</span>
-                  </div>
+                <MenuItem
+                  name="Marry Cake"
+                  price="385,00 TL"
+                />
+
+                <MenuItem
+                  name="Matilda"
+                  price="385,00 TL"
+                />
+
+                <MenuItem
+                  name="Victoria Bowl"
+                  price="415,00 TL"
+                />
+
+                <MenuItem
+                  name="Baby Bowl"
+                  price="295,00 TL"
+                />
+
+                <MenuItem
+                  name="San Sebastian"
+                  price="260,00 TL"
+                />
+
+                <MenuItem
+                  name="Cookie"
+                  note="Antep Fıstıklı, Yer fıstıklı, Çikolatalı"
+                  price="185,00 TL"
+                />
+
+                <MenuItem
+                  name="Nutella Cookie Tart"
+                  price="210,00 TL"
+                />
+
+                <MenuItem
+                  name="Trio Chocolate Brownie"
+                  price="240,00 TL"
+                />
+              </div>
+
+              <div className="tv-section-title">Snack Bar</div>
+
+              <div className="tv-menu-items">
+                <MenuItem
+                  name="Kruvasan Sandwich"
+                  note="Hindi Füme, Roastbeef"
+                  price="315,00 TL"
+                />
+
+                <MenuItem
+                  name="Kruvasan Sandwich"
+                  note="Domates Mozzarella"
+                  price="295,00 TL"
+                />
+
+                <MenuItem
+                  name="Ciabatta Sandwich"
+                  note="Hindi Füme, Roastbeef"
+                  price="315,00 TL"
+                />
+
+                <MenuItem
+                  name="Ciabatta Sandwich"
+                  note="Domates Mozzarella"
+                  price="295,00 TL"
+                />
+
+                <MenuItem
+                  name="Focaccia Sandwich"
+                  note="Hindi Füme, Roastbeef"
+                  price="315,00 TL"
+                />
+
+                <MenuItem
+                  name="Focaccia Sandwich"
+                  note="Domates Mozzarella"
+                  price="295,00 TL"
+                />
+              </div>
+              <div className="tv-section-title">Healty Section</div>
+
+              <div className="tv-menu-items">
+                <MenuItem
+                  name="Chakra Granola Bowl"
+                  note="Granola, Süzme Yoğurt, Yulaf, Chia Tohumu, Yaban Mersini, Bal, Muz, Çilek, Frambuaz"
+                  price="385,00 TL"
+                />
+
+                <MenuItem
+                  name="Ivana Bowl"
+                  note="Hindistan Cevizi, Süzme Yoğurt, Yulaf, Chia Tohumu, Keten Tohumu, Yaban Mersini, Frambuaz, Muz"
+                  price="385,00 TL"
+                />
+
+                <MenuItem
+                  name="Ayala Peanut Bowl"
+                  note="Fıstık Ezmesi, Süzme Yoğurt, Yulaf, Chia Tohumu, Ceviz, Bal, Böğürtlen, Muz, Çilek"
+                  price="385,00 TL"
+                />
+
+                <MenuItem
+                  name="Falafel Salad Bowl"
+                  note="Falafel Topları, Mozzarella, Roka, Nane, Ceviz, Kıvırcık, Keten Tohumu, Domates, Salatalık, Mısır"
+                  price="385,00 TL"
+                />
+              </div>
+            </div>
+
+            <div className="tv-footer-brand">
+              <img
+                src="https://pepocoffee.com/pepologo.png"
+                alt="PEPO Coffee & Social"
+                className="tv-footer-logo"
+              />
+
+              <div className="tv-footer-links">
+                <div className="tv-footer-item">
+                  <span className="tv-footer-dot"></span>
+                  <span>@pepocoffeesocial</span>
+                </div>
+
+                <div className="tv-footer-item">
+                  <span className="tv-footer-dot"></span>
+                  <span>www.pepocoffee.com</span>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </main>

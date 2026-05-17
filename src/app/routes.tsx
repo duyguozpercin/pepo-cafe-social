@@ -17,7 +17,6 @@ export const router = createBrowserRouter([
       { path: "iletisim", Component: Contact },
     ],
   },
-
   {
     path: "/tv",
     Component: TvPage,
