@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router";
 
-const logoImg = "/logo.jpeg";
+const logoImg = "/logopepo.png";
 
 export function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -43,7 +43,7 @@ export function Layout() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 no-underline">
             <img src={logoImg} alt="PEPO Coffee & Social" className="h-12 w-auto" />
-
+            {/* 
             <div className="leading-[1.1]">
               <div className="text-[rgb(var(--pepo-gold))] text-[1.15rem] tracking-[0.12em]">
                 PEPO
@@ -51,7 +51,7 @@ export function Layout() {
               <div className="text-[rgb(var(--pepo-text))] text-[0.62rem] tracking-[0.25em] opacity-70">
                 COFFEE & SOCIAL
               </div>
-            </div>
+            </div> */}
           </Link>
 
           {/* Desktop nav */}
@@ -177,14 +177,14 @@ export function Layout() {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <img src={logoImg} alt="PEPO Coffee & Social" className="h-10 w-auto" />
-                <div className="leading-[1.1]">
+                {/* <div className="leading-[1.1]">
                   <div className="text-[rgb(var(--pepo-gold))] text-[1.1rem] tracking-[0.12em]">
                     PEPO
                   </div>
                   <div className="text-[rgb(var(--pepo-text))] text-[0.6rem] tracking-[0.25em] opacity-60">
                     COFFEE & SOCIAL
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <p className="text-[rgba(245,240,232,0.55)] text-[0.88rem] leading-[1.8]">
@@ -233,7 +233,6 @@ export function Layout() {
 
               <ul className="flex flex-col gap-3 text-[rgba(245,240,232,0.65)] text-[0.88rem] list-none p-0">
                 <li>info@pepocoffee.com</li>
-                <li>+90 (212) 000 00 00</li>
                 <li className="leading-[1.7]">
                   İnönü Caddesi No:375/A, İzmir, Türkiye
                 </li>

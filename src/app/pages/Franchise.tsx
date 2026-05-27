@@ -1,10 +1,10 @@
 import { ImageWithFallback } from "../components/ImageWithFallback";
 import { DynamicForm } from "../components/DynamicForm";
 
-const franchiseImg = "pepo-franchise.png";
+const franchiseImg = "pepo-franchise.jpeg";
 
 const benefits = [
-  { title: "Güçlü Marka", desc: "Tanınan ve güvenilen PEPO markasının arkasında durun." },
+  { title: "Hızla Yükselen Marka", desc: "Büyümeye hazır olan Pepo ailesinin bir parçası olun." },
   { title: "Kapsamlı Eğitim", desc: "Operasyon, servis ve kahve eğitimlerinde tam destek." },
   { title: "Süregelen Destek", desc: "Açılıştan sonra da yanınızda olan deneyimli ekip." },
   { title: "Kanıtlanmış Model", desc: "Başarılı iş modeli ve güçlü kâr marjı." },
@@ -39,7 +39,7 @@ export function Franchise() {
     const res = await fetch("/api/send-email", {
       method: "POST",
       // Content-Type eklemiyoruz; FormData gönderirken tarayıcı otomatik ayarlar.
-      body: formData, 
+      body: formData,
     });
 
     if (!res.ok) {
@@ -53,9 +53,8 @@ export function Franchise() {
       {/* Hero Section */}
       <section className="relative pt-40 pb-28 px-6 overflow-hidden text-center">
         <div className="absolute inset-0">
-          <ImageWithFallback src={franchiseImg} alt="Franchise" className="w-full h-full object-cover brightness-[0.2]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-[rgb(var(--pepo-bg))]" />
-        </div>
+          <ImageWithFallback src={franchiseImg} alt="Franchise" className="w-full h-full object-cover brightness-[0.65]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-[rgb(var(--pepo-bg)/0.8)]" />        </div>
         <div className="relative max-w-4xl mx-auto">
           <div className="text-[rgb(var(--pepo-gold))] text-[0.72rem] tracking-[0.4em] mb-5 uppercase">Bizimle Büyüyün</div>
           <h1 className="text-[rgb(var(--pepo-text))] font-normal mb-6 text-[clamp(2.5rem,6vw,5rem)]">PEPO Franchise</h1>

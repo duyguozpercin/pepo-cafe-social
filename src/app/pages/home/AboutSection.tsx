@@ -2,9 +2,10 @@ import { ImageWithFallback } from "../../components/ImageWithFallback";
 
 const baristaImg =
   "banner.jpeg";
+const thinkgobal = "/thinkglobal.png";
 const stats = [
   { num: "2023", label: "Kuruluş Yılı" },
-  { num: "100+", label: "Menü Seçeneği" },
+  { num: "100+", label: "Lezzet" },
   { num: "∞", label: "Sıcak Atmosfer" },
 ];
 
@@ -13,14 +14,18 @@ export function AboutSection() {
     <section className="bg-[rgb(var(--pepo-bg))] py-28 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Left: Image */}
-        <div className="relative">
+        <div className="relative flex items-center justify-center">
           <ImageWithFallback
-            src={baristaImg}
+            src={baristaImg} 
             alt="Barista"
             className="w-full h-[520px] object-cover filter brightness-[0.85]"
           />
-
-          {/* <div className="pointer-events-none absolute -bottom-5 -right-5 w-[180px] h-[180px] border border-[#C49A2A]/40" /> */}
+          <ImageWithFallback
+            src={thinkgobal}
+            alt="Think Global"
+        
+            className="absolute w-full max-w-[400px] h-auto object-contain"
+          />
         </div>
 
         {/* Right: Text */}

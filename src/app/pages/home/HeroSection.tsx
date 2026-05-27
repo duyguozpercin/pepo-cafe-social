@@ -3,6 +3,8 @@ import { ImageWithFallback } from "../../components/ImageWithFallback";
 
 const heroImg =
   "/banner.jpeg"
+const logo = "/pepologo.png";
+
 export function HeroSection() {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -11,25 +13,14 @@ export function HeroSection() {
         <ImageWithFallback
           src={heroImg}
           alt="PEPO Coffee Interior"
-          className="w-full h-full object-cover filter brightness-[0.35]"
+          className="w-full h-full object-cover filter brightness-[0.5]"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(26,15,8,0.2)_0%,rgba(26,15,8,0.55)_80%,rgba(26,15,8,1)_100%)]" />
-      </div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(26,15,8,0.1)_0%,rgba(26,15,8,0.35)_80%,rgba(26,15,8,0.85)_100%)]" />      </div>
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        <div className="text-[rgb(var(--pepo-gold))] text-[0.72rem] tracking-[0.4em] mb-6 opacity-90">
-          İZMİR'İN YENİ BULUŞMA NOKTASI
-        </div>
 
-        <h1 className="text-[rgb(var(--pepo-gold))] text-[clamp(2.5rem,7vw,4.5rem)] leading-[1.05] mb-6 font-normal">
-          PEPO Coffee & Social
-
-        </h1>
-
-        <p className="text-[rgba(245,240,232,0.7)] text-[clamp(1rem,2vw,1.2rem)] leading-[1.8] mb-12 max-w-[560px] mx-auto">
-          Kahvenin sanatını, sosyal bir atmosferle buluşturduğumuz bu özel mekâna hoş geldiniz.
-        </p>
+        <ImageWithFallback src={logo} alt="PEPO Logo" className="mx-auto mb-6 w-[400px] h-auto" />
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a

@@ -1,0 +1,256 @@
+.tv-page {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.tv-page * {
+  box-sizing: border-box;
+}
+
+.tv-video-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background: #000;
+}
+
+#youtubePlayer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 177.78vh;
+  height: 100vh;
+  min-width: 100vw;
+  min-height: 56.25vw;
+  transform: translate(-50%, -50%);
+  border: 0;
+  pointer-events: none;
+}
+
+.tv-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to right,
+      rgba(0, 0, 0, 0.54),
+      rgba(0, 0, 0, 0.12),
+      rgba(0, 0, 0, 0.12),
+      rgba(0, 0, 0, 0.54));
+}
+
+.tv-grid {
+  position: relative;
+  z-index: 3;
+  width: 100vw;
+  height: 100vh;
+  padding: clamp(10px, 0.75vw, 18px);
+  display: grid;
+  grid-template-columns: 1.05fr 1.05fr 1.9fr 2fr;
+  gap: clamp(8px, 0.65vw, 16px);
+}
+
+.tv-column,
+.tv-empty-column {
+  height: 100%;
+  min-height: 0;
+}
+
+.tv-column {
+  overflow: hidden;
+  border-radius: clamp(16px, 1vw, 26px);
+}
+
+.tv-menu-card,
+.tv-food-card {
+  height: 100%;
+  overflow: hidden;
+  padding: clamp(9px, 0.68vw, 16px);
+  border-radius: clamp(16px, 1vw, 26px);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tv-menu-card {
+  background: rgba(244, 239, 230, 0.91);
+  color: #160c06;
+}
+
+.tv-food-card {
+  background: rgba(35, 21, 13, 0.88);
+  color: #f4efe6;
+  display: flex;
+  flex-direction: column;
+}
+
+.tv-food-content {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.tv-section-title {
+  margin: 3px 0 2px;
+  color: #b98b18;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(185, 139, 24, 0.45);
+  padding-bottom: 1px;
+  line-height: 1;
+}
+
+.tv-menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.tv-menu-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  align-items: start;
+  gap: clamp(4px, 0.32vw, 10px);
+  padding-bottom: 1px;
+  border-bottom: 1px dashed rgba(22, 12, 6, 0.15);
+}
+
+.tv-food-card .tv-menu-item {
+  border-bottom-color: rgba(244, 239, 230, 0.16);
+}
+
+.tv-item-name {
+  min-width: 0;
+  font-size: 6.2px;
+  font-weight: 800;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.tv-item-note {
+  display: block;
+  margin-top: 1px;
+  font-size: 4.9px;
+  font-weight: 500;
+  opacity: 0.68;
+  text-transform: none;
+  line-height: 0.95;
+}
+
+.tv-item-price {
+  min-width: max-content;
+  color: #b98b18;
+  font-size: 6.2px;
+  font-weight: 900;
+  white-space: nowrap;
+  text-align: right;
+  line-height: 0.95;
+}
+
+.tv-footer-brand {
+  margin-top: clamp(5px, 0.35vw, 10px);
+  padding-top: clamp(5px, 0.35vw, 10px);
+  border-top: 1px solid rgba(185, 139, 24, 0.24);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(8px, 0.55vw, 16px);
+}
+
+.tv-footer-logo {
+  max-height: clamp(48px, 3.8vw, 92px);
+  width: auto;
+  object-fit: contain;
+}
+
+.tv-footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3px, 0.22vw, 7px);
+  align-items: flex-end;
+}
+
+.tv-footer-item {
+  display: flex;
+  align-items: center;
+  gap: clamp(5px, 0.32vw, 10px);
+  font-size: clamp(7.8px, 0.42vw, 12.5px);
+  letter-spacing: 0.25px;
+  color: rgba(244, 239, 230, 0.84);
+  white-space: nowrap;
+}
+
+.tv-footer-dot {
+  width: clamp(4px, 0.25vw, 7px);
+  height: clamp(4px, 0.25vw, 7px);
+  border-radius: 999px;
+  background: #b98b18;
+  flex-shrink: 0;
+}
+
+@media (min-width: 2500px) {
+  .tv-grid {
+    padding: 22px;
+    gap: 18px;
+    grid-template-columns: 1.05fr 1.05fr 1.95fr 2fr;
+  }
+
+  .tv-menu-card,
+  .tv-food-card {
+    padding: 7px;
+  }
+
+  .tv-item-name,
+  .tv-item-price {
+    font-size: 13px;
+  }
+
+  .tv-item-note {
+    font-size: 10px;
+  }
+
+  .tv-section-title {
+    font-size: 13.5px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .tv-grid {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .tv-menu-card,
+  .tv-food-card {
+    padding: 8px;
+  }
+
+  .tv-section-title {
+    font-size: 7.8px;
+    margin: 3px 0 2px;
+  }
+
+  .tv-item-name,
+  .tv-item-price {
+    font-size: 6.8px;
+  }
+
+  .tv-item-note {
+    font-size: 5.4px;
+  }
+
+  .tv-footer-logo {
+    max-height: 42px;
+  }
+
+  .tv-footer-item {
+    font-size: 7px;
+  }
+}
